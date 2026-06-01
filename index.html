@@ -2,152 +2,322 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Parque Collico</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Parque Collico</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
 
 <style>
-body { margin: 0; font-family: Arial; }
 
-/* PANTALLAS */
-.pantalla {
-  display: none;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
 
-.activa {
-  display: block;
+body{
+background:#111;
+color:white;
+}
+
+/* PANTALLAS */
+
+.pantalla{
+display:none;
+}
+
+.activa{
+display:block;
 }
 
 /* PORTADA */
-.portada img {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
+
+#inicio{
+position:relative;
+height:100vh;
+overflow:hidden;
 }
 
-.boton {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 25px;
-  background: #2c7a7b;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
+#inicio img{
+width:100%;
+height:100vh;
+object-fit:cover;
 }
 
-/* FORMULARIO */
-.form-box {
-  padding: 20px;
+.overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.35);
 }
 
-input {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
+.logo{
+position:absolute;
+top:50px;
+left:50%;
+transform:translateX(-50%);
+font-size:34px;
+font-weight:bold;
+text-align:center;
+}
+
+.subtitulo{
+position:absolute;
+bottom:120px;
+width:100%;
+text-align:center;
+font-size:18px;
+padding:0 20px;
+}
+
+.boton{
+position:absolute;
+bottom:50px;
+left:50%;
+transform:translateX(-50%);
+padding:15px 30px;
+border:none;
+border-radius:30px;
+background:#2c7a7b;
+color:white;
+font-size:18px;
+}
+
+/* FORM */
+
+#registro{
+background:white;
+color:black;
+min-height:100vh;
+padding:25px;
+}
+
+.form-card{
+max-width:500px;
+margin:auto;
+}
+
+.form-card h2{
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+.terminos{
+height:180px;
+overflow:auto;
+background:#f3f3f3;
+padding:15px;
+border-radius:10px;
+font-size:13px;
+margin-bottom:15px;
+}
+
+.check{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.check input{
+width:auto;
+}
+
+.btn-entrar{
+width:100%;
+padding:15px;
+border:none;
+background:#2c7a7b;
+color:white;
+border-radius:12px;
+font-size:16px;
 }
 
 /* MAPA */
-#map {
-  height: 100vh;
+
+#map{
+height:100vh;
+width:100%;
 }
+
 </style>
 </head>
-
 <body>
 
-<!-- 🌲 PANTALLA 1 -->
-<div id="inicio" class="pantalla activa portada">
-  <img src="img/foto1.jpg">
-  <button class="boton" onclick="irFormulario()">Ingresar</button>
+<!-- INICIO -->
+
+<div id="inicio" class="pantalla activa">
+
+<img src="img/foto1.jpg">
+
+<div class="overlay"></div>
+
+<div class="logo">
+PARQUE COLLICO
 </div>
 
-<!-- 📋 PANTALLA 2 -->
-<div id="formulario" class="pantalla">
-  <div class="form-box">
-    <h2>Registro de ingreso</h2>
-
-    <input placeholder="Nombre" id="nombre">
-    <input placeholder="RUT" id="rut">
-    <input placeholder="Teléfono" id="telefono">
-    <input placeholder="Correo" id="correo">
-
-    <label>
-      <input type="checkbox" id="condiciones">
-      Acepto términos y condiciones
-    </label>
-
-    <br><br>
-
-    <button onclick="validarIngreso()">Entrar</button>
-  </div>
+<div class="subtitulo">
+Trail Running · MTB · Trekking · Naturaleza
 </div>
 
-<!-- 🗺️ PANTALLA 3 -->
+<button class="boton" onclick="mostrar('registro')">
+INGRESAR
+</button>
+
+</div>
+
+<!-- REGISTRO -->
+
+<div id="registro" class="pantalla">
+
+<div class="form-card">
+
+<h2>Registro de Ingreso</h2>
+
+<input id="nombre" placeholder="Nombre completo">
+
+<input id="rut" placeholder="RUT">
+
+<input id="telefono" placeholder="Teléfono">
+
+<input id="correo" placeholder="Correo electrónico">
+
+<div class="terminos">
+
+<h3>Términos y Condiciones</h3>
+
+<br>
+
+El ingreso al Parque Collico implica la aceptación de los presentes términos y condiciones.
+
+Toda actividad de senderismo, trail running, MTB, descenso, XC y recreación se realiza bajo exclusiva responsabilidad del visitante.
+
+El usuario declara conocer los riesgos propios de actividades desarrolladas en entornos naturales.
+
+Se prohíbe dañar flora, fauna, infraestructura y senderos.
+
+Las mascotas deberán permanecer bajo control de sus responsables.
+
+Se prohíbe encender fuego.
+
+El parque podrá restringir accesos por razones climáticas o de seguridad.
+
+Al registrarse el visitante autoriza el uso de sus datos para control de acceso y seguridad.
+
+</div>
+
+<div class="check">
+
+<input type="checkbox" id="acepta">
+
+<label>
+Acepto términos y condiciones
+</label>
+
+</div>
+
+<button class="btn-entrar" onclick="entrarMapa()">
+ENTRAR AL PARQUE
+</button>
+
+</div>
+
+</div>
+
+<!-- MAPA -->
+
 <div id="mapa" class="pantalla">
-  <div id="map"></div>
+<div id="map"></div>
 </div>
 
 <script>
 
-// cambiar pantallas
-function mostrar(id) {
-  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-  document.getElementById(id).classList.add('activa');
+function mostrar(id){
+
+document
+.querySelectorAll('.pantalla')
+.forEach(p=>p.classList.remove('activa'));
+
+document
+.getElementById(id)
+.classList.add('activa');
+
 }
 
-function irFormulario() {
-  mostrar("formulario");
+function entrarMapa(){
+
+let nombre=document.getElementById("nombre").value;
+let rut=document.getElementById("rut").value;
+let telefono=document.getElementById("telefono").value;
+let correo=document.getElementById("correo").value;
+let acepta=document.getElementById("acepta").checked;
+
+if(!nombre || !rut || !telefono || !correo){
+
+alert("Completa todos los campos");
+
+return;
 }
 
-// validar
-function validarIngreso() {
-  let nombre = document.getElementById("nombre").value;
-  let rut = document.getElementById("rut").value;
-  let telefono = document.getElementById("telefono").value;
-  let correo = document.getElementById("correo").value;
-  let acepta = document.getElementById("condiciones").checked;
+if(!acepta){
 
-  if (!nombre || !rut || !telefono || !correo) {
-    alert("Completa todos los campos");
-    return;
-  }
+alert("Debes aceptar los términos");
 
-  if (!acepta) {
-    alert("Debes aceptar los términos");
-    return;
-  }
-
-  mostrar("mapa");
-  iniciarMapa();
+return;
 }
 
-// MAPA
-function iniciarMapa() {
+mostrar("mapa");
 
-  const map = L.map('map').setView([-39.8, -73.2], 14);
+setTimeout(iniciarMapa,300);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+}
 
-  omnivore.kml('rutas.kml')
-    .on('ready', function() {
-      map.fitBounds(this.getBounds());
-    })
-    .addTo(map);
+function iniciarMapa(){
 
-  map.locate({ setView: true });
+if(window.mapaCreado) return;
 
-  map.on('locationfound', e => {
-    L.marker(e.latlng).addTo(map)
-      .bindPopup("Estás aquí")
-      .openPopup();
-  });
+window.mapaCreado=true;
+
+const map=L.map('map').setView([-39.82,-73.18],14);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+).addTo(map);
+
+omnivore.kml('rutas.kml')
+.on('ready',function(){
+
+map.fitBounds(this.getBounds());
+
+})
+.addTo(map);
+
+map.locate({
+setView:true,
+maxZoom:16
+});
+
+map.on('locationfound',e=>{
+
+L.marker(e.latlng)
+.addTo(map)
+.bindPopup("Tu ubicación")
+.openPopup();
+
+});
+
 }
 
 </script>
