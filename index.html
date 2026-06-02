@@ -1,4 +1,4 @@
-Arauco
+```html id="6gr7t0"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -78,15 +78,44 @@ height:100%;
 background:rgba(0,0,0,.45);
 }
 
+/* =========================
+LOGO
+========================= */
+
 .logo{
 position:absolute;
 top:60px;
 left:50%;
 transform:translateX(-50%);
-font-size:42px;
-font-weight:bold;
 text-align:center;
 z-index:2;
+width:100%;
+padding:0 20px;
+}
+
+.logo h1{
+font-size:44px;
+font-weight:bold;
+margin-bottom:10px;
+color:white;
+text-shadow:0 4px 10px rgba(0,0,0,.4);
+}
+
+.logo h2{
+font-size:26px;
+font-weight:300;
+margin-bottom:8px;
+color:white;
+letter-spacing:4px;
+text-transform:uppercase;
+}
+
+.logo h3{
+font-size:20px;
+font-weight:400;
+color:#d9d9d9;
+letter-spacing:6px;
+text-transform:uppercase;
 }
 
 .subtitulo{
@@ -120,7 +149,7 @@ transform:translateX(-50%) scale(1.05);
 }
 
 /* =========================
-REGISTRO PREMIUM
+REGISTRO
 ========================= */
 
 #registro{
@@ -234,11 +263,6 @@ color:white;
 border-radius:12px;
 font-size:16px;
 cursor:pointer;
-transition:.3s;
-}
-
-.btn-entrar:hover{
-background:#256b6c;
 }
 
 /* =========================
@@ -251,15 +275,11 @@ width:100%;
 height:100vh;
 }
 
-/* =========================
-SIDEBAR
-========================= */
-
 #sidebar{
 position:absolute;
 top:0;
 left:0;
-width:330px;
+width:340px;
 height:100vh;
 background:#151515;
 z-index:1000;
@@ -338,6 +358,17 @@ transition:.3s;
 background:#333;
 }
 
+.ruta-item h3{
+margin-bottom:10px;
+font-size:16px;
+}
+
+.ruta-info{
+font-size:13px;
+line-height:1.6;
+opacity:.9;
+}
+
 /* =========================
 MAPA
 ========================= */
@@ -348,16 +379,17 @@ width:100%;
 }
 
 /* =========================
-POPUP
+POPUPS
 ========================= */
 
 .leaflet-popup-content{
 font-size:14px;
-line-height:1.5;
+line-height:1.6;
 }
 
 .leaflet-popup-content h2{
 margin-bottom:10px;
+color:#2c7a7b;
 }
 
 /* =========================
@@ -370,8 +402,16 @@ RESPONSIVE
 width:260px;
 }
 
-.logo{
-font-size:30px;
+.logo h1{
+font-size:32px;
+}
+
+.logo h2{
+font-size:18px;
+}
+
+.logo h3{
+font-size:15px;
 }
 
 .titulo-bienvenida{
@@ -397,7 +437,19 @@ INICIO
 <div class="overlay"></div>
 
 <div class="logo">
-PARQUE COLLICO
+
+<h1>
+Bienvenido a Parque Collico
+</h1>
+
+<h2>
+Bosque Abierto
+</h2>
+
+<h3>
+Arauco
+</h3>
+
 </div>
 
 <div class="subtitulo">
@@ -468,9 +520,6 @@ No hacer fuego.
 Respetar flora y fauna.
 
 Mantener mascotas bajo control.
-
-El parque podrá restringir accesos
-por razones climáticas o seguridad.
 
 </div>
 
@@ -636,7 +685,7 @@ hablar(
 "Bienvenido a Parque Collico"
 );
 
-},1000);
+},1200);
 
 },300);
 
@@ -847,23 +896,59 @@ feature.properties.name ||
 
 let descripcion =
 feature.properties.description ||
-"Sendero Parque Collico";
+"Sin descripción";
+
+let distancia =
+feature.properties.distancia ||
+"Distancia no disponible";
+
+let dificultad =
+feature.properties.dificultad ||
+"Media";
+
+let direccion =
+feature.properties.direccion ||
+"Bidireccional";
+
+let disciplina =
+feature.properties.disciplina ||
+"Trail / Trekking";
+
+/* POPUP */
 
 layer.bindPopup(`
 
 <h2>${nombre}</h2>
 
-<div>
+<p>
 ${descripcion}
-</div>
+</p>
+
+<hr>
+
+<b>Distancia:</b>
+${distancia}
+
+<br>
+
+<b>Dificultad:</b>
+${dificultad}
+
+<br>
+
+<b>Dirección:</b>
+${direccion}
+
+<br>
+
+<b>Disciplina:</b>
+${disciplina}
 
 `);
 
 layer.nombreRuta = nombre;
 
-/* =========================
-PANEL
-========================= */
+/* PANEL */
 
 const item =
 document.createElement("div");
@@ -875,9 +960,17 @@ item.innerHTML = `
 
 <h3>${nombre}</h3>
 
-<p>
-Ver sendero
-</p>
+<div class="ruta-info">
+
+📏 ${distancia}<br>
+
+🔥 ${dificultad}<br>
+
+🧭 ${direccion}<br>
+
+🚵 ${disciplina}
+
+</div>
 
 `;
 
@@ -914,9 +1007,7 @@ listaRutas.appendChild(item);
 
 }).addTo(map);
 
-/* =========================
-AJUSTAR MAPA
-========================= */
+/* AJUSTAR MAPA */
 
 map.fitBounds(
 rutas.getBounds()
@@ -1000,8 +1091,10 @@ rutasAvisadas.push(
 layer.nombreRuta
 );
 
+/* VOZ */
+
 hablar(
-`Te estás acercando a ${layer.nombreRuta}`
+`Estás llegando a la ruta ${layer.nombreRuta}`
 );
 
 /* ESTADISTICAS */
