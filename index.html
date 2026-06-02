@@ -1,24 +1,18 @@
-```html id="codigo-parque-collico"
+```html
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
-
-<!-- LEAFLET -->
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<!-- KML -->
 
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
@@ -37,10 +31,6 @@ background:#111;
 color:white;
 }
 
-/* ======================
-PANTALLAS
-====================== */
-
 .pantalla{
 display:none;
 }
@@ -49,9 +39,9 @@ display:none;
 display:block;
 }
 
-/* ======================
-INICIO
-====================== */
+/* =====================
+PORTADA
+===================== */
 
 #inicio{
 position:relative;
@@ -80,20 +70,20 @@ top:60px;
 left:50%;
 transform:translateX(-50%);
 text-align:center;
-z-index:2;
 width:100%;
+z-index:2;
 }
 
 .logo h1{
-font-size:50px;
+font-size:52px;
 margin-bottom:10px;
 }
 
 .logo h2{
 font-size:28px;
-margin-bottom:10px;
-font-weight:300;
 letter-spacing:4px;
+font-weight:300;
+margin-bottom:8px;
 }
 
 .logo h3{
@@ -124,9 +114,9 @@ font-size:18px;
 cursor:pointer;
 }
 
-/* ======================
+/* =====================
 REGISTRO
-====================== */
+===================== */
 
 #registro{
 position:relative;
@@ -177,17 +167,12 @@ text-align:center;
 }
 
 .form-card{
-background:rgba(255,255,255,.95);
+background:rgba(255,255,255,.96);
 padding:30px;
 border-radius:25px;
 max-width:500px;
 width:100%;
 color:black;
-}
-
-.form-card h2{
-margin-bottom:20px;
-text-align:center;
 }
 
 input,
@@ -217,10 +202,6 @@ gap:10px;
 margin-bottom:20px;
 }
 
-.check input{
-width:auto;
-}
-
 .btn-entrar{
 width:100%;
 padding:15px;
@@ -232,9 +213,9 @@ font-size:16px;
 cursor:pointer;
 }
 
-/* ======================
+/* =====================
 MAPA
-====================== */
+===================== */
 
 #mapa{
 position:relative;
@@ -259,37 +240,11 @@ overflow:auto;
 padding:20px;
 }
 
-#sidebar h1{
-margin-bottom:15px;
-font-size:28px;
-}
-
-#sidebar h2{
-margin:20px 0;
-}
-
-.estadisticas{
-display:flex;
-gap:10px;
-margin-bottom:20px;
-}
-
-.card-stat{
-flex:1;
+.card{
 background:#222;
 padding:15px;
 border-radius:15px;
-text-align:center;
-}
-
-.card-stat h3{
-font-size:14px;
-margin-bottom:8px;
-}
-
-.card-stat p{
-font-size:24px;
-font-weight:bold;
+margin-bottom:15px;
 }
 
 .ruta-item{
@@ -309,31 +264,15 @@ font-size:13px;
 line-height:1.8;
 }
 
-@media(max-width:768px){
-
-#sidebar{
-width:260px;
-}
-
-.logo h1{
-font-size:34px;
-}
-
-.logo h2{
-font-size:20px;
-}
-
-}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- ======================
-PORTADA
-====================== -->
+<!-- =====================
+INICIO
+===================== -->
 
 <div id="inicio"
 class="pantalla activa">
@@ -371,9 +310,9 @@ INGRESAR
 
 </div>
 
-<!-- ======================
+<!-- =====================
 REGISTRO
-====================== -->
+===================== -->
 
 <div id="registro"
 class="pantalla">
@@ -394,10 +333,6 @@ Bosque Abierto · Arauco
 
 <div class="form-card">
 
-<h2>
-Registro de Ingreso
-</h2>
-
 <input id="nombre"
 placeholder="Nombre completo">
 
@@ -410,14 +345,14 @@ placeholder="Teléfono">
 <select id="genero">
 
 <option value="">
-Selecciona sexo
+Sexo
 </option>
 
-<option value="Hombre">
+<option>
 Hombre
 </option>
 
-<option value="Mujer">
+<option>
 Mujer
 </option>
 
@@ -428,14 +363,11 @@ placeholder="Correo electrónico">
 
 <div class="terminos">
 
-Toda actividad se realiza bajo
-responsabilidad del visitante.
+Toda actividad se realiza bajo responsabilidad del visitante.
 
 No hacer fuego.
 
 Respetar flora y fauna.
-
-Mantener mascotas bajo control.
 
 </div>
 
@@ -445,7 +377,7 @@ Mantener mascotas bajo control.
 id="acepta">
 
 <label>
-Acepto términos y condiciones
+Acepto términos
 </label>
 
 </div>
@@ -463,78 +395,37 @@ ENTRAR AL PARQUE
 
 </div>
 
-<!-- ======================
+<!-- =====================
 MAPA
-====================== -->
+===================== -->
 
 <div id="mapa"
 class="pantalla">
 
 <div id="sidebar">
 
-<h1>
-PARQUE COLLICO
-</h1>
-
-<div class="estadisticas">
-
-<div class="card-stat">
-
-<h3>
-Visitantes
-</h3>
-
-<p id="contador-personas">
-0
-</p>
-
-</div>
-
-<div class="card-stat">
-
-<h3>
-Rutas
-</h3>
-
-<p>
-23
-</p>
-
-</div>
-
-</div>
-
-<div class="estadisticas">
-
-<div class="card-stat">
-
-<h3>
-Km Totales
-</h3>
-
-<p>
-38,25
-</p>
-
-</div>
-
-<div class="card-stat">
-
-<h3>
-Senderos
-</h3>
-
-<p>
-23
-</p>
-
-</div>
-
-</div>
+<div class="card">
 
 <h2>
-Senderos
+PARQUE COLLICO
 </h2>
+
+<p>
+23 Senderos
+</p>
+
+<p>
+38,25 km
+</p>
+
+<p>
+Visitantes:
+<span id="contador-personas">
+0
+</span>
+</p>
+
+</div>
 
 <div id="lista-rutas"></div>
 
@@ -546,9 +437,9 @@ Senderos
 
 <script>
 
-/* ======================
-CAMBIAR PANTALLAS
-====================== */
+/* =====================
+PANTALLAS
+===================== */
 
 function mostrar(id){
 
@@ -562,9 +453,9 @@ document
 
 }
 
-/* ======================
+/* =====================
 BOT VOZ
-====================== */
+===================== */
 
 function hablar(texto){
 
@@ -575,15 +466,13 @@ new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
 
-voz.rate = 1;
-
 speechSynthesis.speak(voz);
 
 }
 
-/* ======================
+/* =====================
 ENTRAR
-====================== */
+===================== */
 
 function entrarMapa(){
 
@@ -613,20 +502,14 @@ if(
 !correo
 ){
 
-alert(
-"Completa todos los campos"
-);
-
+alert("Completa todos los campos");
 return;
 
 }
 
 if(!acepta){
 
-alert(
-"Debes aceptar términos"
-);
-
+alert("Debes aceptar términos");
 return;
 
 }
@@ -646,21 +529,21 @@ hablar(
 Bosque Abierto Arauco.
 
 El parque cuenta con 23 senderos
-y 38 coma 25 kilómetros de rutas.
+y 38 coma 25 kilómetros.
 
 Disfruta tu estadía.`
 
 );
 
-},1500);
+},1200);
 
 },300);
 
 }
 
-/* ======================
+/* =====================
 DATOS RUTAS
-====================== */
+===================== */
 
 const datosSenderos = {
 
@@ -685,83 +568,6 @@ direccion:"BIDIRECCIONAL",
 disciplina:"TR-XC-DH"
 },
 
-"ANDROIDE- MACHAQUE 2":{
-distancia:"1,8 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"DH-XC-TR"
-},
-
-"MIRADOR DEL PUMA":{
-distancia:"5,08 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"RP-TR"
-},
-
-"SUAVETON":{
-distancia:"0,8 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC"
-},
-
-"COLLICO 2":{
-distancia:"7,76 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"RP-TR-XC"
-},
-
-"COLLICO 1 (TRAMO 1)":{
-distancia:"0,73 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC-DH"
-},
-
-"COLLICO 1 (TRAMO 2)":{
-distancia:"0,91 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC-DH"
-},
-
-"COLLICO 1 (TRAMO 3)":{
-distancia:"0,45 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC-DH"
-},
-
-"LOS HELECHOS":{
-distancia:"0,68 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC"
-},
-
-"SANGUIJUELA":{
-distancia:"2,71 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
-"LOS PINOS":{
-distancia:"0,84 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
-"CHELA TRACK":{
-distancia:"0,89 km",
-dificultad:"DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
 "SPOT 23":{
 distancia:"1,97 km",
 dificultad:"DIFICIL",
@@ -769,75 +575,26 @@ direccion:"SOLO BAJADA",
 disciplina:"DH-XC"
 },
 
-"SUAVETONA LEX ONE":{
-distancia:"2,28 km",
-dificultad:"DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
-"EL MURO":{
-distancia:"1,59 km",
-dificultad:"DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC"
-},
-
-"LA TOXICA":{
-distancia:"1,97 km",
-dificultad:"DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
-"MACHAQUE 1":{
-distancia:"1,2 km",
-dificultad:"DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC"
-},
-
-"SUAVETONES AL MIRADOR":{
-distancia:"0,95 km",
-dificultad:"MUY DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
-},
-
-"LALO CURA":{
-distancia:"1,25 km",
-dificultad:"MUY DIFICIL",
-direccion:"SOLO BAJADA",
-disciplina:"TR"
-},
-
 "VIETNAM":{
 distancia:"0,77 km",
 dificultad:"MUY DIFICIL",
 direccion:"SOLO SUBIDA",
 disciplina:"TR"
-},
-
-"CASCADA COLLICO":{
-distancia:"0,56 km",
-dificultad:"MUY DIFICIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR"
 }
 
 };
 
-/* ======================
-INICIAR MAPA
-====================== */
+/* =====================
+MAPA
+===================== */
 
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
-window.mapaCreado=true;
+window.mapaCreado = true;
 
-/* CONTADOR */
+/* VISITAS */
 
 let visitas =
 localStorage.getItem(
@@ -864,10 +621,7 @@ document.getElementById(
 /* MAPA */
 
 const map = L.map('map')
-.setView(
-[-39.82,-73.18],
-14
-);
+.setView([-39.82,-73.18],14);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -883,9 +637,7 @@ const colores = [
 '#e53935',
 '#8e24aa',
 '#00897b',
-'#f4511e',
-'#3949ab',
-'#6d4c41'
+'#f4511e'
 
 ];
 
@@ -894,7 +646,7 @@ document.getElementById(
 "lista-rutas"
 );
 
-/* CARGAR KML */
+/* KML */
 
 fetch('rutas.kml')
 
@@ -950,42 +702,46 @@ feature,
 layer
 ){
 
-let nombre = "";
-
-if(feature.properties){
-
-nombre =
+let nombre =
 feature.properties.name ||
 feature.properties.Nombre ||
-feature.properties.NOMBRE ||
 feature.properties.title ||
-"Ruta Parque";
-
-}
+"RUTA";
 
 nombre = nombre
 .toString()
 .trim()
 .toUpperCase();
 
-layer.nombreRuta =
-nombre;
+/* BUSCAR INFO */
 
-const datos =
-datosSenderos[nombre] || {
+let datos = {
 
-distancia:"Sin información",
-dificultad:"Sin información",
-direccion:"Sin información",
-disciplina:"Sin información"
+distancia:"No disponible",
+dificultad:"No disponible",
+direccion:"No disponible",
+disciplina:"No disponible"
 
 };
+
+for(const ruta in datosSenderos){
+
+if(
+nombre.includes(ruta)
+){
+
+datos =
+datosSenderos[ruta];
+
+break;
+
+}
+
+}
 
 /* POPUP */
 
 layer.bindPopup(`
-
-<div style="min-width:220px">
 
 <h2>
 ${nombre}
@@ -994,30 +750,28 @@ ${nombre}
 <hr>
 
 <p>
-📏 <b>Distancia:</b>
+📏 Distancia:
 ${datos.distancia}
 </p>
 
 <p>
-🔥 <b>Dificultad:</b>
+🔥 Dificultad:
 ${datos.dificultad}
 </p>
 
 <p>
-🧭 <b>Dirección:</b>
+🧭 Dirección:
 ${datos.direccion}
 </p>
 
 <p>
-🚵 <b>Disciplina:</b>
+🚵 Disciplina:
 ${datos.disciplina}
 </p>
 
-</div>
-
 `);
 
-/* LISTADO */
+/* LISTA */
 
 const item =
 document.createElement("div");
@@ -1057,6 +811,11 @@ layer.openPopup();
 
 listaRutas.appendChild(item);
 
+/* VOZ CERCANIA */
+
+layer.nombreRuta =
+nombre;
+
 }
 
 }).addTo(map);
@@ -1072,7 +831,7 @@ rutas.getBounds()
 console.log(error);
 
 alert(
-"No se pudo cargar rutas.kml"
+"Error cargando rutas.kml"
 );
 
 });
@@ -1094,8 +853,7 @@ map.on(
 'locationfound',
 e=>{
 
-const latlng =
-e.latlng;
+const latlng = e.latlng;
 
 if(marcadorUsuario){
 
@@ -1142,7 +900,7 @@ layer.nombreRuta
 
 hablar(
 
-`Estás llegando a la ruta ${layer.nombreRuta}`
+`Estas llegando a la ruta ${layer.nombreRuta}`
 
 );
 
@@ -1157,28 +915,6 @@ hablar(
 });
 
 });
-
-/* CIERRE */
-
-setInterval(()=>{
-
-const ahora =
-new Date();
-
-if(
-ahora.getHours()===17 &&
-ahora.getMinutes()===30
-){
-
-hablar(
-
-"Atención. El parque cerrará en 30 minutos"
-
-);
-
-}
-
-},60000);
 
 }
 
