@@ -11,22 +11,14 @@ content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
 
-<!-- LEAFLET -->
-
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<!-- KML -->
-
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
 <style>
-
-/* =========================
-GENERAL
-========================= */
 
 *{
 margin:0;
@@ -112,11 +104,6 @@ color:white;
 font-size:18px;
 cursor:pointer;
 z-index:2;
-transition:.3s;
-}
-
-.boton:hover{
-transform:translateX(-50%) scale(1.05);
 }
 
 /* =========================
@@ -151,12 +138,10 @@ padding:25px;
 border-radius:20px;
 margin-top:20px;
 color:black;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 .form-card h2{
 margin-bottom:20px;
-text-align:center;
 }
 
 input{
@@ -165,7 +150,6 @@ padding:14px;
 margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:10px;
-font-size:15px;
 }
 
 .terminos{
@@ -226,7 +210,6 @@ z-index:1000;
 overflow:auto;
 padding:20px;
 color:white;
-box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 #sidebar h1{
@@ -298,11 +281,6 @@ transition:.3s;
 background:#333;
 }
 
-.ruta-item h3{
-margin-bottom:8px;
-font-size:16px;
-}
-
 /* =========================
 MAPA
 ========================= */
@@ -310,19 +288,6 @@ MAPA
 #map{
 height:100vh;
 width:100%;
-}
-
-/* =========================
-POPUPS
-========================= */
-
-.leaflet-popup-content{
-font-size:14px;
-line-height:1.5;
-}
-
-.leaflet-popup-content h2{
-margin-bottom:10px;
 }
 
 /* =========================
@@ -336,11 +301,7 @@ width:260px;
 }
 
 .logo{
-font-size:32px;
-}
-
-.subtitulo{
-font-size:16px;
+font-size:30px;
 }
 
 }
@@ -386,9 +347,7 @@ REGISTRO
 
 <div class="form-card">
 
-<h2>
-Registro de Ingreso
-</h2>
+<h2>Registro de Ingreso</h2>
 
 <input id="nombre"
 placeholder="Nombre completo">
@@ -408,9 +367,6 @@ placeholder="Correo electrónico">
 
 <br>
 
-El ingreso al Parque Collico implica
-la aceptación de estos términos.
-
 Toda actividad se realiza bajo
 responsabilidad del visitante.
 
@@ -419,9 +375,6 @@ No hacer fuego.
 Respetar flora y fauna.
 
 Mantener mascotas bajo control.
-
-El parque podrá restringir accesos
-por razones climáticas o seguridad.
 
 </div>
 
@@ -452,15 +405,11 @@ MAPA
 
 <div id="mapa" class="pantalla">
 
-<!-- SIDEBAR -->
-
 <div id="sidebar">
 
 <h1>
 PARQUE COLLICO
 </h1>
-
-<!-- ESTADISTICAS -->
 
 <div class="estadisticas">
 
@@ -486,15 +435,11 @@ PARQUE COLLICO
 
 </div>
 
-<!-- RANKING -->
-
 <h2>
 Rutas más utilizadas
 </h2>
 
 <div id="ranking-rutas"></div>
-
-<!-- LISTA -->
 
 <h2>
 Senderos
@@ -503,8 +448,6 @@ Senderos
 <div id="lista-rutas"></div>
 
 </div>
-
-<!-- MAPA -->
 
 <div id="map"></div>
 
@@ -565,7 +508,21 @@ return;
 
 mostrar("mapa");
 
-setTimeout(iniciarMapa,300);
+setTimeout(()=>{
+
+iniciarMapa();
+
+/* VOZ BIENVENIDA */
+
+setTimeout(()=>{
+
+hablar(
+"Bienvenido a Parque Collico"
+);
+
+},1500);
+
+},300);
 
 }
 
@@ -579,9 +536,7 @@ if(window.mapaCreado) return;
 
 window.mapaCreado = true;
 
-/* =========================
-CONTADOR VISITAS
-========================= */
+/* CONTADOR VISITAS */
 
 let visitas =
 localStorage.getItem("visitasParque");
@@ -603,18 +558,14 @@ document.getElementById(
 "contador-personas"
 ).innerText = visitas;
 
-/* =========================
-RUTAS STATS
-========================= */
+/* RUTAS STATS */
 
 let rutasStats =
 JSON.parse(
 localStorage.getItem("rutasStats")
 ) || {};
 
-/* =========================
-ACTUALIZAR RANKING
-========================= */
+/* ACTUALIZAR RANKING */
 
 function actualizarRanking(){
 
@@ -662,18 +613,14 @@ Object.keys(rutasStats).length;
 
 actualizarRanking();
 
-/* =========================
-MAPA
-========================= */
+/* MAPA */
 
 const map = L.map('map').setView(
 [-39.82,-73.18],
 14
 );
 
-/* =========================
-BASE MAPA
-========================= */
+/* MAPA BASE */
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -688,25 +635,21 @@ VOZ
 
 function hablar(texto){
 
+window.speechSynthesis.cancel();
+
 const voz =
 new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
+voz.volume = 1;
 voz.rate = 1;
+voz.pitch = 1;
 
 speechSynthesis.speak(voz);
 
 }
 
-/* BIENVENIDA */
-
-hablar(
-"Bienvenido a Parque Collico"
-);
-
-/* =========================
-COLORES
-========================= */
+/* COLORES */
 
 const colores = [
 
@@ -723,11 +666,7 @@ const colores = [
 
 ];
 
-let colorIndex = 0;
-
-/* =========================
-LISTA RUTAS
-========================= */
+/* LISTA RUTAS */
 
 const listaRutas =
 document.getElementById(
@@ -756,17 +695,26 @@ kmlText,
 const geojson =
 toGeoJSON.kml(kml);
 
-/* =========================
-CREAR RUTAS
-========================= */
+/* CREAR RUTAS */
 
 const rutas = L.geoJSON(geojson, {
 
-style:function(){
+style:function(feature){
+
+let nombre =
+feature.properties.name || "";
+
+let numero = 0;
+
+for(let i=0;i<nombre.length;i++){
+
+numero += nombre.charCodeAt(i);
+
+}
 
 const color =
 colores[
-colorIndex++ % colores.length
+numero % colores.length
 ];
 
 return{
@@ -829,7 +777,7 @@ layer.getBounds()
 
 layer.openPopup();
 
-/* SUMAR USO */
+/* ESTADISTICAS */
 
 if(!rutasStats[nombre]){
 
@@ -854,7 +802,7 @@ listaRutas.appendChild(item);
 
 }).addTo(map);
 
-/* AJUSTAR */
+/* AJUSTAR MAPA */
 
 map.fitBounds(
 rutas.getBounds()
@@ -887,15 +835,11 @@ setView:false
 
 });
 
-/* =========================
-UBICACION
-========================= */
+/* UBICACION */
 
 map.on('locationfound',e=>{
 
 const latlng = e.latlng;
-
-/* MARCADOR */
 
 if(marcadorUsuario){
 
@@ -938,7 +882,7 @@ rutasAvisadas.push(
 layer.nombreRuta
 );
 
-/* VOZ */
+/* VOZ RUTA */
 
 hablar(
 `Te estás acercando a ${layer.nombreRuta}`
@@ -973,9 +917,7 @@ actualizarRanking();
 
 });
 
-/* =========================
-ERROR GPS
-========================= */
+/* ERROR GPS */
 
 map.on('locationerror',()=>{
 
