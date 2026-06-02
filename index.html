@@ -893,31 +893,40 @@ break;
 
 layer.bindPopup(`
 
-<h2>
+<div style="min-width:250px">
+
+<h2 style="margin-bottom:10px;">
 ${nombre}
 </h2>
 
 <hr>
 
 <p>
-📏 Distancia:
+📍 <b>Tipo:</b>
+${datos.tipo}
+</p>
+
+<p>
+📏 <b>Distancia:</b>
 ${datos.distancia}
 </p>
 
 <p>
-🔥 Dificultad:
+🔥 <b>Dificultad:</b>
 ${datos.dificultad}
 </p>
 
 <p>
-🧭 Dirección:
+🧭 <b>Dirección:</b>
 ${datos.direccion}
 </p>
 
 <p>
-🚵 Disciplina:
+🚵 <b>Disciplina:</b>
 ${datos.disciplina}
 </p>
+
+</div>
 
 `);
 
@@ -936,6 +945,8 @@ ${nombre}
 </h3>
 
 <div class="ruta-info">
+
+📍 <b>${datos.tipo}</b><br>
 
 📏 ${datos.distancia}<br>
 
