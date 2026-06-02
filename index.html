@@ -1,4 +1,4 @@
-```html id="parque-collico-completo"
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,14 +11,10 @@ content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
 
-<!-- LEAFLET -->
-
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<!-- TOGEOJSON -->
 
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
@@ -86,27 +82,22 @@ padding:0 20px;
 }
 
 .logo h1{
-font-size:46px;
+font-size:48px;
 font-weight:bold;
 margin-bottom:10px;
-color:white;
 }
 
 .logo h2{
-font-size:26px;
+font-size:28px;
 font-weight:300;
-margin-bottom:8px;
-color:white;
 letter-spacing:4px;
-text-transform:uppercase;
+margin-bottom:8px;
 }
 
 .logo h3{
 font-size:18px;
-font-weight:400;
-color:#ddd;
 letter-spacing:6px;
-text-transform:uppercase;
+color:#ddd;
 }
 
 .subtitulo{
@@ -166,25 +157,23 @@ background:rgba(0,0,0,.6);
 position:relative;
 z-index:2;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
 min-height:100vh;
 padding:30px;
+flex-direction:column;
 }
 
 .titulo-bienvenida{
 font-size:42px;
-margin-bottom:15px;
+margin-bottom:10px;
 text-align:center;
 }
 
-.texto-bienvenida{
-font-size:18px;
-text-align:center;
+.sub-bienvenida{
+font-size:20px;
 margin-bottom:30px;
-max-width:600px;
-line-height:1.6;
+text-align:center;
 }
 
 .form-card{
@@ -209,7 +198,6 @@ margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:10px;
 font-size:15px;
-background:white;
 }
 
 .terminos{
@@ -226,9 +214,7 @@ line-height:1.6;
 .check{
 display:flex;
 gap:10px;
-align-items:center;
 margin-bottom:20px;
-color:black;
 }
 
 .check input{
@@ -266,16 +252,10 @@ background:#151515;
 z-index:1000;
 overflow:auto;
 padding:20px;
-color:white;
 }
 
 #sidebar h1{
 font-size:28px;
-margin-bottom:10px;
-}
-
-#sidebar h2{
-margin-top:25px;
 margin-bottom:15px;
 }
 
@@ -308,13 +288,6 @@ font-size:24px;
 font-weight:bold;
 }
 
-.rank-item{
-background:#222;
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-}
-
 .ruta-item{
 background:#222;
 padding:15px;
@@ -332,6 +305,13 @@ font-size:13px;
 line-height:1.6;
 }
 
+.rank-item{
+background:#222;
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+}
+
 @media(max-width:768px){
 
 #sidebar{
@@ -343,7 +323,7 @@ font-size:34px;
 }
 
 .logo h2{
-font-size:18px;
+font-size:20px;
 }
 
 .logo h3{
@@ -413,12 +393,9 @@ REGISTRO
 Bienvenido a Parque Collico
 </h1>
 
-<p class="texto-bienvenida">
-
-Disfruta senderos, naturaleza,
-trekking y MTB.
-
-</p>
+<div class="sub-bienvenida">
+Bosque Abierto · Arauco
+</div>
 
 <div class="form-card">
 
@@ -455,10 +432,6 @@ Mujer
 placeholder="Correo electrónico">
 
 <div class="terminos">
-
-<h3>Términos y Condiciones</h3>
-
-<br>
 
 Toda actividad se realiza bajo
 responsabilidad del visitante.
@@ -555,12 +528,6 @@ PARQUE COLLICO
 </div>
 
 <h2>
-Rutas más utilizadas
-</h2>
-
-<div id="ranking-rutas"></div>
-
-<h2>
 Senderos
 </h2>
 
@@ -574,10 +541,6 @@ Senderos
 
 <script>
 
-/* =========================
-PANTALLAS
-========================= */
-
 function mostrar(id){
 
 document
@@ -590,10 +553,6 @@ document
 
 }
 
-/* =========================
-VOZ
-========================= */
-
 function hablar(texto){
 
 window.speechSynthesis.cancel();
@@ -602,15 +561,10 @@ const voz =
 new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
-voz.rate = 1;
 
 speechSynthesis.speak(voz);
 
 }
-
-/* =========================
-ENTRAR MAPA
-========================= */
 
 function entrarMapa(){
 
@@ -661,26 +615,28 @@ iniciarMapa();
 setTimeout(()=>{
 
 hablar(
-"Bienvenido a Parque Collico"
+
+`Bienvenido a Parque Collico.
+Bosque Abierto Arauco.
+
+El parque cuenta con 23 senderos
+y 38 coma 25 kilómetros de rutas.
+
+Disfruta tu estadía y la naturaleza.`
+
 );
 
-},1200);
+},1500);
 
 },300);
 
 }
-
-/* =========================
-MAPA
-========================= */
 
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
 window.mapaCreado=true;
-
-/* VISITAS */
 
 let visitas =
 localStorage.getItem("visitasParque");
@@ -702,21 +658,14 @@ document.getElementById(
 "contador-personas"
 ).innerText = visitas;
 
-/* MAPA */
-
 const map = L.map('map').setView(
 [-39.82,-73.18],
 14
 );
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-attribution:'© OpenStreetMap'
-}
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 ).addTo(map);
-
-/* COLORES */
 
 const colores = [
 
@@ -732,41 +681,10 @@ const colores = [
 
 ];
 
-/* DATOS RUTAS */
-
-const datosSenderos = {
-
-"BUDICALI":{
-distancia:"1.37 km",
-dificultad:"FÁCIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC"
-},
-
-"MIRADOR KUNSTMANN":{
-distancia:"1.04 km",
-dificultad:"FÁCIL",
-direccion:"BIDIRECCIONAL",
-disciplina:"RP-TR-DH"
-},
-
-"CONEJO":{
-distancia:"0.65 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"TR-XC-DH"
-}
-
-};
-
 const listaRutas =
 document.getElementById(
 "lista-rutas"
 );
-
-/* =========================
-CARGAR KML
-========================= */
 
 fetch('rutas.kml')
 
@@ -801,16 +719,14 @@ numero += nombre.charCodeAt(i);
 
 }
 
-const color =
-colores[
-numero % colores.length
-];
-
 return{
 
-color:color,
-weight:5,
-opacity:1
+color:
+colores[
+numero % colores.length
+],
+
+weight:5
 
 };
 
@@ -822,43 +738,17 @@ let nombre =
 feature.properties.name ||
 "Ruta Parque";
 
-const datos =
-datosSenderos[nombre] || {
-
-distancia:"No disponible",
-dificultad:"No disponible",
-direccion:"No disponible",
-disciplina:"No disponible"
-
-};
+layer.nombreRuta = nombre;
 
 layer.bindPopup(`
 
 <h2>${nombre}</h2>
 
-<hr>
-
-<b>📏 Distancia:</b>
-${datos.distancia}
-
-<br><br>
-
-<b>🔥 Dificultad:</b>
-${datos.dificultad}
-
-<br><br>
-
-<b>🧭 Dirección:</b>
-${datos.direccion}
-
-<br><br>
-
-<b>🚵 Disciplina:</b>
-${datos.disciplina}
+<p>
+Sendero Parque Collico
+</p>
 
 `);
-
-layer.nombreRuta = nombre;
 
 const item =
 document.createElement("div");
@@ -872,13 +762,7 @@ item.innerHTML = `
 
 <div class="ruta-info">
 
-📏 ${datos.distancia}<br>
-
-🔥 ${datos.dificultad}<br>
-
-🧭 ${datos.direccion}<br>
-
-🚵 ${datos.disciplina}
+📍 Sendero Parque Collico
 
 </div>
 
@@ -908,18 +792,13 @@ rutas.getBounds()
 
 .catch(error=>{
 
-console.log(
-"ERROR KML:",
-error
-);
+console.log(error);
 
 alert(
 "No se pudo cargar rutas.kml"
 );
 
 });
-
-/* GPS */
 
 let marcadorUsuario = null;
 
@@ -944,8 +823,7 @@ marcadorUsuario.setLatLng(latlng);
 
 marcadorUsuario =
 L.marker(latlng)
-.addTo(map)
-.bindPopup("Tu ubicación");
+.addTo(map);
 
 }
 
@@ -990,16 +868,6 @@ hablar(
 });
 
 });
-
-map.on('locationerror',()=>{
-
-alert(
-"Debes activar el GPS"
-);
-
-});
-
-/* CIERRE PARQUE */
 
 setInterval(()=>{
 
