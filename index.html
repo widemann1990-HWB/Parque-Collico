@@ -1,4 +1,4 @@
-```html id="6gr7t0"
+```html id="6h7l9p"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,7 +18,7 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<!-- KML -->
+<!-- TOGEOJSON -->
 
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
@@ -94,11 +94,10 @@ padding:0 20px;
 }
 
 .logo h1{
-font-size:44px;
+font-size:46px;
 font-weight:bold;
 margin-bottom:10px;
 color:white;
-text-shadow:0 4px 10px rgba(0,0,0,.4);
 }
 
 .logo h2{
@@ -111,9 +110,9 @@ text-transform:uppercase;
 }
 
 .logo h3{
-font-size:20px;
+font-size:18px;
 font-weight:400;
-color:#d9d9d9;
+color:#ddd;
 letter-spacing:6px;
 text-transform:uppercase;
 }
@@ -141,11 +140,6 @@ color:white;
 font-size:18px;
 cursor:pointer;
 z-index:2;
-transition:.3s;
-}
-
-.boton:hover{
-transform:translateX(-50%) scale(1.05);
 }
 
 /* =========================
@@ -166,7 +160,6 @@ width:100%;
 height:100%;
 background:url('img/foto1.jpg')
 center center/cover no-repeat;
-transform:scale(1.05);
 }
 
 .registro-overlay{
@@ -175,8 +168,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.55);
-backdrop-filter:blur(3px);
+background:rgba(0,0,0,.6);
 }
 
 .registro-contenido{
@@ -187,32 +179,27 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-padding:30px 20px;
+padding:30px;
 }
 
 .titulo-bienvenida{
 font-size:42px;
-font-weight:bold;
 margin-bottom:15px;
 text-align:center;
-color:white;
 }
 
 .texto-bienvenida{
 font-size:18px;
 text-align:center;
-color:white;
 margin-bottom:30px;
 max-width:600px;
 line-height:1.6;
 }
 
 .form-card{
-background:rgba(255,255,255,.96);
-backdrop-filter:blur(12px);
-border-radius:25px;
+background:rgba(255,255,255,.95);
 padding:30px;
-box-shadow:0 10px 40px rgba(0,0,0,.35);
+border-radius:25px;
 max-width:500px;
 width:100%;
 color:black;
@@ -229,7 +216,6 @@ padding:14px;
 margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:10px;
-font-size:15px;
 }
 
 .terminos{
@@ -286,7 +272,6 @@ z-index:1000;
 overflow:auto;
 padding:20px;
 color:white;
-box-shadow:0 0 20px rgba(0,0,0,.4);
 }
 
 #sidebar h1{
@@ -299,6 +284,32 @@ margin-top:25px;
 margin-bottom:15px;
 }
 
+#map{
+height:100vh;
+width:100%;
+}
+
+/* =========================
+RUTAS
+========================= */
+
+.ruta-item{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+.ruta-item h3{
+margin-bottom:10px;
+}
+
+.ruta-info{
+font-size:13px;
+line-height:1.6;
+}
+
 /* =========================
 ESTADISTICAS
 ========================= */
@@ -306,7 +317,7 @@ ESTADISTICAS
 .estadisticas{
 display:flex;
 gap:10px;
-margin-bottom:25px;
+margin-bottom:20px;
 }
 
 .card-stat{
@@ -320,7 +331,6 @@ text-align:center;
 .card-stat h3{
 font-size:14px;
 margin-bottom:8px;
-opacity:.7;
 }
 
 .card-stat p{
@@ -328,68 +338,11 @@ font-size:28px;
 font-weight:bold;
 }
 
-/* =========================
-RANKING
-========================= */
-
 .rank-item{
 background:#222;
 padding:12px;
 border-radius:12px;
 margin-bottom:10px;
-font-size:14px;
-line-height:1.5;
-}
-
-/* =========================
-RUTAS
-========================= */
-
-.ruta-item{
-background:#222;
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
-cursor:pointer;
-transition:.3s;
-}
-
-.ruta-item:hover{
-background:#333;
-}
-
-.ruta-item h3{
-margin-bottom:10px;
-font-size:16px;
-}
-
-.ruta-info{
-font-size:13px;
-line-height:1.6;
-opacity:.9;
-}
-
-/* =========================
-MAPA
-========================= */
-
-#map{
-height:100vh;
-width:100%;
-}
-
-/* =========================
-POPUPS
-========================= */
-
-.leaflet-popup-content{
-font-size:14px;
-line-height:1.6;
-}
-
-.leaflet-popup-content h2{
-margin-bottom:10px;
-color:#2c7a7b;
 }
 
 /* =========================
@@ -403,7 +356,7 @@ width:260px;
 }
 
 .logo h1{
-font-size:32px;
+font-size:34px;
 }
 
 .logo h2{
@@ -411,11 +364,7 @@ font-size:18px;
 }
 
 .logo h3{
-font-size:15px;
-}
-
-.titulo-bienvenida{
-font-size:30px;
+font-size:14px;
 }
 
 }
@@ -439,7 +388,7 @@ INICIO
 <div class="logo">
 
 <h1>
-Bienvenido a Parque Collico
+Parque Collico
 </h1>
 
 <h2>
@@ -483,8 +432,8 @@ Bienvenido a Parque Collico
 
 <p class="texto-bienvenida">
 
-Disfruta la experiencia de senderos,
-naturaleza, MTB y trekking.
+Disfruta senderos, naturaleza,
+trekking y MTB.
 
 </p>
 
@@ -572,7 +521,7 @@ PARQUE COLLICO
 
 <div class="card-stat">
 
-<h3>Rutas usadas</h3>
+<h3>Rutas</h3>
 
 <p id="contador-rutas">
 0
@@ -603,7 +552,7 @@ Senderos
 <script>
 
 /* =========================
-CAMBIO PANTALLAS
+PANTALLAS
 ========================= */
 
 function mostrar(id){
@@ -630,9 +579,7 @@ const voz =
 new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
-voz.volume = 1;
 voz.rate = 1;
-voz.pitch = 1;
 
 speechSynthesis.speak(voz);
 
@@ -699,11 +646,9 @@ function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
-window.mapaCreado = true;
+window.mapaCreado=true;
 
-/* =========================
-CONTADOR VISITAS
-========================= */
+/* VISITAS */
 
 let visitas =
 localStorage.getItem("visitasParque");
@@ -725,18 +670,12 @@ document.getElementById(
 "contador-personas"
 ).innerText = visitas;
 
-/* =========================
-RUTAS STATS
-========================= */
+/* RANKING */
 
 let rutasStats =
 JSON.parse(
 localStorage.getItem("rutasStats")
 ) || {};
-
-/* =========================
-ACTUALIZAR RANKING
-========================= */
 
 function actualizarRanking(){
 
@@ -757,9 +696,9 @@ ordenadas.slice(0,5)
 const item =
 document.createElement("div");
 
-item.className = "rank-item";
+item.className="rank-item";
 
-item.innerHTML = `
+item.innerHTML=`
 
 ${index+1}. ${ruta[0]}
 
@@ -784,18 +723,12 @@ Object.keys(rutasStats).length;
 
 actualizarRanking();
 
-/* =========================
-MAPA
-========================= */
+/* MAPA */
 
 const map = L.map('map').setView(
 [-39.82,-73.18],
 14
 );
-
-/* =========================
-MAPA BASE
-========================= */
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -817,15 +750,55 @@ const colores = [
 '#af52de',
 '#5ac8fa',
 '#ff2d55',
-'#8e8e93',
 '#00c7be',
 '#ffd60a'
 
 ];
 
 /* =========================
-LISTA RUTAS
+DATOS SENDEROS
 ========================= */
+
+const datosSenderos = {
+
+"BUDICALI":{
+distancia:"1.37 km",
+dificultad:"FÁCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"MIRADOR KUNSTMANN":{
+distancia:"1.04 km",
+dificultad:"FÁCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"RP-TR-DH"
+},
+
+"CONEJO":{
+distancia:"0.65 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC-DH"
+},
+
+"ANDROIDE- MACHAQUE 2":{
+distancia:"1.80 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"DH-XC-TR"
+},
+
+"MIRADOR DEL PUMA":{
+distancia:"5.08 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"RP-TR"
+}
+
+};
+
+/* LISTA */
 
 const listaRutas =
 document.getElementById(
@@ -838,7 +811,7 @@ CARGAR KML
 
 fetch('rutas.kml')
 
-.then(res=>res.text())
+.then(response=>response.text())
 
 .then(kmlText=>{
 
@@ -853,10 +826,6 @@ kmlText,
 
 const geojson =
 toGeoJSON.kml(kml);
-
-/* =========================
-CREAR RUTAS
-========================= */
 
 const rutas = L.geoJSON(geojson, {
 
@@ -894,25 +863,15 @@ let nombre =
 feature.properties.name ||
 "Ruta Parque";
 
-let descripcion =
-feature.properties.description ||
-"Sin descripción";
+const datos =
+datosSenderos[nombre] || {
 
-let distancia =
-feature.properties.distancia ||
-"Distancia no disponible";
+distancia:"No disponible",
+dificultad:"No disponible",
+direccion:"No disponible",
+disciplina:"No disponible"
 
-let dificultad =
-feature.properties.dificultad ||
-"Media";
-
-let direccion =
-feature.properties.direccion ||
-"Bidireccional";
-
-let disciplina =
-feature.properties.disciplina ||
-"Trail / Trekking";
+};
 
 /* POPUP */
 
@@ -920,31 +879,29 @@ layer.bindPopup(`
 
 <h2>${nombre}</h2>
 
-<p>
-${descripcion}
-</p>
-
 <hr>
 
-<b>Distancia:</b>
-${distancia}
+<b>📏 Distancia:</b>
+${datos.distancia}
 
-<br>
+<br><br>
 
-<b>Dificultad:</b>
-${dificultad}
+<b>🔥 Dificultad:</b>
+${datos.dificultad}
 
-<br>
+<br><br>
 
-<b>Dirección:</b>
-${direccion}
+<b>🧭 Dirección:</b>
+${datos.direccion}
 
-<br>
+<br><br>
 
-<b>Disciplina:</b>
-${disciplina}
+<b>🚵 Disciplina:</b>
+${datos.disciplina}
 
 `);
+
+/* GUARDAR NOMBRE */
 
 layer.nombreRuta = nombre;
 
@@ -962,13 +919,13 @@ item.innerHTML = `
 
 <div class="ruta-info">
 
-📏 ${distancia}<br>
+📏 ${datos.distancia}<br>
 
-🔥 ${dificultad}<br>
+🔥 ${datos.dificultad}<br>
 
-🧭 ${direccion}<br>
+🧭 ${datos.direccion}<br>
 
-🚵 ${disciplina}
+🚵 ${datos.disciplina}
 
 </div>
 
@@ -982,23 +939,6 @@ layer.getBounds()
 
 layer.openPopup();
 
-/* ESTADISTICAS */
-
-if(!rutasStats[nombre]){
-
-rutasStats[nombre] = 0;
-
-}
-
-rutasStats[nombre]++;
-
-localStorage.setItem(
-"rutasStats",
-JSON.stringify(rutasStats)
-);
-
-actualizarRanking();
-
 };
 
 listaRutas.appendChild(item);
@@ -1007,7 +947,7 @@ listaRutas.appendChild(item);
 
 }).addTo(map);
 
-/* AJUSTAR MAPA */
+/* AJUSTAR */
 
 map.fitBounds(
 rutas.getBounds()
@@ -1020,6 +960,10 @@ rutas.getBounds()
 console.log(
 "ERROR KML:",
 error
+);
+
+alert(
+"No se pudo cargar rutas.kml"
 );
 
 });
@@ -1035,14 +979,9 @@ let rutasAvisadas = [];
 map.locate({
 
 watch:true,
-enableHighAccuracy:true,
-setView:false
+enableHighAccuracy:true
 
 });
-
-/* =========================
-UBICACION
-========================= */
 
 map.on('locationfound',e=>{
 
@@ -1061,9 +1000,7 @@ L.marker(latlng)
 
 }
 
-/* =========================
-PROXIMIDAD
-========================= */
+/* PROXIMIDAD */
 
 map.eachLayer(layer=>{
 
@@ -1091,29 +1028,10 @@ rutasAvisadas.push(
 layer.nombreRuta
 );
 
-/* VOZ */
-
 hablar(
 `Estás llegando a la ruta ${layer.nombreRuta}`
 );
 
-/* ESTADISTICAS */
-
-if(!rutasStats[layer.nombreRuta]){
-
-rutasStats[layer.nombreRuta] = 0;
-
-}
-
-rutasStats[layer.nombreRuta]++;
-
-localStorage.setItem(
-"rutasStats",
-JSON.stringify(rutasStats)
-);
-
-actualizarRanking();
-
 }
 
 }
@@ -1126,9 +1044,7 @@ actualizarRanking();
 
 });
 
-/* =========================
-ERROR GPS
-========================= */
+/* ERROR GPS */
 
 map.on('locationerror',()=>{
 
