@@ -1,4 +1,4 @@
-```html
+```html id="parque-collico-final"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,10 +11,14 @@ content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
 
+<!-- LEAFLET -->
+
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- TOGEOJSON -->
 
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
@@ -65,10 +69,6 @@ width:100%;
 height:100%;
 background:rgba(0,0,0,.45);
 }
-
-/* =========================
-LOGO
-========================= */
 
 .logo{
 position:absolute;
@@ -150,7 +150,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.6);
+background:rgba(0,0,0,.65);
 }
 
 .registro-contenido{
@@ -259,6 +259,11 @@ font-size:28px;
 margin-bottom:15px;
 }
 
+#sidebar h2{
+margin-top:20px;
+margin-bottom:15px;
+}
+
 #map{
 height:100vh;
 width:100%;
@@ -294,22 +299,21 @@ padding:15px;
 border-radius:15px;
 margin-bottom:15px;
 cursor:pointer;
+transition:.3s;
+}
+
+.ruta-item:hover{
+background:#2c2c2c;
 }
 
 .ruta-item h3{
 margin-bottom:10px;
+font-size:18px;
 }
 
 .ruta-info{
 font-size:13px;
-line-height:1.6;
-}
-
-.rank-item{
-background:#222;
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
+line-height:1.8;
 }
 
 @media(max-width:768px){
@@ -446,7 +450,8 @@ Mantener mascotas bajo control.
 
 <div class="check">
 
-<input type="checkbox" id="acepta">
+<input type="checkbox"
+id="acepta">
 
 <label>
 Acepto términos y condiciones
@@ -541,6 +546,10 @@ Senderos
 
 <script>
 
+/* =========================
+PANTALLAS
+========================= */
+
 function mostrar(id){
 
 document
@@ -553,6 +562,10 @@ document
 
 }
 
+/* =========================
+VOZ
+========================= */
+
 function hablar(texto){
 
 window.speechSynthesis.cancel();
@@ -561,10 +574,15 @@ const voz =
 new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
+voz.rate = 1;
 
 speechSynthesis.speak(voz);
 
 }
+
+/* =========================
+ENTRAR
+========================= */
 
 function entrarMapa(){
 
@@ -594,14 +612,20 @@ if(
 !correo
 ){
 
-alert("Completa todos los campos");
+alert(
+"Completa todos los campos"
+);
+
 return;
 
 }
 
 if(!acepta){
 
-alert("Debes aceptar términos");
+alert(
+"Debes aceptar términos"
+);
+
 return;
 
 }
@@ -617,6 +641,7 @@ setTimeout(()=>{
 hablar(
 
 `Bienvenido a Parque Collico.
+
 Bosque Abierto Arauco.
 
 El parque cuenta con 23 senderos
@@ -632,14 +657,191 @@ Disfruta tu estadía y la naturaleza.`
 
 }
 
+/* =========================
+DATOS SENDEROS
+========================= */
+
+const datosSenderos = {
+
+"BUDICALI":{
+distancia:"1,37 km",
+dificultad:"FÁCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"MIRADOR KUNSTMANN":{
+distancia:"1,04 km",
+dificultad:"FÁCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"RP-TR-DH"
+},
+
+"CONEJO":{
+distancia:"0,65 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC-DH"
+},
+
+"ANDROIDE- MACHAQUE 2":{
+distancia:"1,8 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"DH-XC-TR"
+},
+
+"MIRADOR DEL PUMA":{
+distancia:"5,08 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"RP-TR"
+},
+
+"SUAVETON":{
+distancia:"0,8 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"COLLICO 2":{
+distancia:"7,76 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"RP-TR-XC"
+},
+
+"COLLICO 1 (TRAMO 1)":{
+distancia:"0,73 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC-DH"
+},
+
+"COLLICO 1 (TRAMO 2)":{
+distancia:"0,91 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC-DH"
+},
+
+"COLLICO 1 (TRAMO 3)":{
+distancia:"0,45 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC-DH"
+},
+
+"LOS HELECHOS":{
+distancia:"0,68 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"SANGUIJUELA":{
+distancia:"2,71 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"LOS PINOS":{
+distancia:"0,84 km",
+dificultad:"MODERADO",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"CHELA TRACK":{
+distancia:"0,89 km",
+dificultad:"DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"SPOT 23":{
+distancia:"1,97 km",
+dificultad:"DIFÍCIL",
+direccion:"SOLO BAJADA",
+disciplina:"DH-XC"
+},
+
+"SUAVETONA LEX ONE":{
+distancia:"2,28 km",
+dificultad:"DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"EL MURO":{
+distancia:"1,59 km",
+dificultad:"DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"LA TOXICA":{
+distancia:"1,97 km",
+dificultad:"DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"MACHAQUE 1":{
+distancia:"1,2 km",
+dificultad:"DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR-XC"
+},
+
+"SUAVETONES AL MIRADOR":{
+distancia:"0,95 km",
+dificultad:"MUY DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+},
+
+"LALO CURA":{
+distancia:"1,25 km",
+dificultad:"MUY DIFÍCIL",
+direccion:"SOLO BAJADA",
+disciplina:"TR"
+},
+
+"VIETNAM":{
+distancia:"0,77 km",
+dificultad:"MUY DIFÍCIL",
+direccion:"SOLO SUBIDA",
+disciplina:"TR"
+},
+
+"CASCADA COLLICO":{
+distancia:"0,56 km",
+dificultad:"MUY DIFÍCIL",
+direccion:"BIDIRECCIONAL",
+disciplina:"TR"
+}
+
+};
+
+/* =========================
+MAPA
+========================= */
+
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
-window.mapaCreado=true;
+window.mapaCreado = true;
+
+/* VISITAS */
 
 let visitas =
-localStorage.getItem("visitasParque");
+localStorage.getItem(
+"visitasParque"
+);
 
 if(!visitas){
 
@@ -658,33 +860,44 @@ document.getElementById(
 "contador-personas"
 ).innerText = visitas;
 
+/* MAPA */
+
 const map = L.map('map').setView(
 [-39.82,-73.18],
 14
 );
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
 ).addTo(map);
+
+/* COLORES */
 
 const colores = [
 
-'#ff3b30',
-'#34c759',
-'#007aff',
-'#ff9500',
-'#af52de',
-'#5ac8fa',
-'#ff2d55',
-'#00c7be',
-'#ffd60a'
+'#1e88e5',
+'#43a047',
+'#fb8c00',
+'#e53935',
+'#8e24aa',
+'#00897b',
+'#f4511e',
+'#3949ab',
+'#6d4c41'
 
 ];
+
+/* LISTA */
 
 const listaRutas =
 document.getElementById(
 "lista-rutas"
 );
+
+/* CARGAR KML */
 
 fetch('rutas.kml')
 
@@ -704,7 +917,9 @@ kmlText,
 const geojson =
 toGeoJSON.kml(kml);
 
-const rutas = L.geoJSON(geojson, {
+const rutas = L.geoJSON(
+geojson,
+{
 
 style:function(feature){
 
@@ -715,7 +930,8 @@ let numero = 0;
 
 for(let i=0;i<nombre.length;i++){
 
-numero += nombre.charCodeAt(i);
+numero +=
+nombre.charCodeAt(i);
 
 }
 
@@ -726,13 +942,17 @@ colores[
 numero % colores.length
 ],
 
-weight:5
+weight:5,
+opacity:1
 
 };
 
 },
 
-onEachFeature:function(feature,layer){
+onEachFeature:function(
+feature,
+layer
+){
 
 let nombre =
 feature.properties.name ||
@@ -740,15 +960,53 @@ feature.properties.name ||
 
 layer.nombreRuta = nombre;
 
+const datos =
+datosSenderos[nombre] || {
+
+distancia:"No disponible",
+dificultad:"No disponible",
+direccion:"No disponible",
+disciplina:"No disponible"
+
+};
+
+/* POPUP */
+
 layer.bindPopup(`
 
-<h2>${nombre}</h2>
+<div style="min-width:220px">
+
+<h2 style="margin-bottom:10px;">
+${nombre}
+</h2>
+
+<hr>
 
 <p>
-Sendero Parque Collico
+📏 <b>Distancia:</b>
+${datos.distancia}
 </p>
 
+<p>
+🔥 <b>Dificultad:</b>
+${datos.dificultad}
+</p>
+
+<p>
+🧭 <b>Dirección:</b>
+${datos.direccion}
+</p>
+
+<p>
+🚵 <b>Disciplina:</b>
+${datos.disciplina}
+</p>
+
+</div>
+
 `);
+
+/* LISTA */
 
 const item =
 document.createElement("div");
@@ -758,11 +1016,19 @@ item.className =
 
 item.innerHTML = `
 
-<h3>${nombre}</h3>
+<h3>
+${nombre}
+</h3>
 
 <div class="ruta-info">
 
-📍 Sendero Parque Collico
+📏 ${datos.distancia}<br>
+
+🔥 ${datos.dificultad}<br>
+
+🧭 ${datos.direccion}<br>
+
+🚵 ${datos.disciplina}
 
 </div>
 
@@ -792,13 +1058,18 @@ rutas.getBounds()
 
 .catch(error=>{
 
-console.log(error);
+console.log(
+"ERROR KML:",
+error
+);
 
 alert(
 "No se pudo cargar rutas.kml"
 );
 
 });
+
+/* GPS */
 
 let marcadorUsuario = null;
 
@@ -811,19 +1082,26 @@ enableHighAccuracy:true
 
 });
 
-map.on('locationfound',e=>{
+map.on(
+'locationfound',
+e=>{
 
-const latlng = e.latlng;
+const latlng =
+e.latlng;
 
 if(marcadorUsuario){
 
-marcadorUsuario.setLatLng(latlng);
+marcadorUsuario
+.setLatLng(latlng);
 
 }else{
 
 marcadorUsuario =
 L.marker(latlng)
-.addTo(map);
+.addTo(map)
+.bindPopup(
+"Tu ubicación"
+);
 
 }
 
@@ -836,10 +1114,14 @@ layer.getLatLngs();
 
 puntos.forEach(p=>{
 
-if(Array.isArray(p)) return;
+if(Array.isArray(p))
+return;
 
 const distancia =
-map.distance(latlng,p);
+map.distance(
+latlng,
+p
+);
 
 if(distancia < 80){
 
@@ -854,7 +1136,9 @@ layer.nombreRuta
 );
 
 hablar(
+
 `Estás llegando a la ruta ${layer.nombreRuta}`
+
 );
 
 }
@@ -869,6 +1153,8 @@ hablar(
 
 });
 
+/* CIERRE */
+
 setInterval(()=>{
 
 const ahora =
@@ -880,7 +1166,9 @@ ahora.getMinutes()===30
 ){
 
 hablar(
+
 "Atención. El parque cerrará en 30 minutos"
+
 );
 
 }
