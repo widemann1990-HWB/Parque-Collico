@@ -1,30 +1,49 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<!-- LEAFLET -->
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
+
+<!-- KML -->
+
+<script src="https://unpkg.com/@tmcw/togeojson"></script>
 
 <style>
+
+/* =========================
+GENERAL
+========================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#111;
+overflow:hidden;
 color:white;
 }
 
-/* PANTALLAS */
+/* =========================
+PANTALLAS
+========================= */
 
 .pantalla{
 display:none;
@@ -34,7 +53,9 @@ display:none;
 display:block;
 }
 
-/* PORTADA */
+/* =========================
+PORTADA
+========================= */
 
 #inicio{
 position:relative;
@@ -44,7 +65,7 @@ overflow:hidden;
 
 #inicio img{
 width:100%;
-height:100vh;
+height:100%;
 object-fit:cover;
 }
 
@@ -54,17 +75,18 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.35);
+background:rgba(0,0,0,.45);
 }
 
 .logo{
 position:absolute;
-top:50px;
+top:60px;
 left:50%;
 transform:translateX(-50%);
-font-size:34px;
+font-size:42px;
 font-weight:bold;
 text-align:center;
+z-index:2;
 }
 
 .subtitulo{
@@ -74,6 +96,7 @@ width:100%;
 text-align:center;
 font-size:18px;
 padding:0 20px;
+z-index:2;
 }
 
 .boton{
@@ -81,38 +104,68 @@ position:absolute;
 bottom:50px;
 left:50%;
 transform:translateX(-50%);
-padding:15px 30px;
+padding:16px 35px;
 border:none;
-border-radius:30px;
+border-radius:40px;
 background:#2c7a7b;
 color:white;
 font-size:18px;
+cursor:pointer;
+z-index:2;
+transition:.3s;
 }
 
-/* FORM */
+.boton:hover{
+transform:translateX(-50%) scale(1.05);
+}
+
+/* =========================
+REGISTRO
+========================= */
 
 #registro{
-background:white;
-color:black;
+position:relative;
 min-height:100vh;
 padding:25px;
+background:url('img/foto1.jpg')
+center center/cover no-repeat;
+}
+
+#registro::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.55);
 }
 
 .form-card{
+position:relative;
+z-index:2;
 max-width:500px;
 margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+margin-top:20px;
+color:black;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
 }
 
 .form-card h2{
 margin-bottom:20px;
+text-align:center;
 }
 
 input{
 width:100%;
-padding:12px;
+padding:14px;
 margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:10px;
+font-size:15px;
 }
 
 .terminos{
@@ -123,11 +176,13 @@ padding:15px;
 border-radius:10px;
 font-size:13px;
 margin-bottom:15px;
+line-height:1.6;
 }
 
 .check{
 display:flex;
 gap:10px;
+align-items:center;
 margin-bottom:20px;
 }
 
@@ -143,20 +198,162 @@ background:#2c7a7b;
 color:white;
 border-radius:12px;
 font-size:16px;
+cursor:pointer;
 }
 
-/* MAPA */
+/* =========================
+MAPA
+========================= */
+
+#mapa{
+position:relative;
+width:100%;
+height:100vh;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+#sidebar{
+position:absolute;
+top:0;
+left:0;
+width:330px;
+height:100vh;
+background:#151515;
+z-index:1000;
+overflow:auto;
+padding:20px;
+color:white;
+box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+#sidebar h1{
+font-size:28px;
+margin-bottom:10px;
+}
+
+#sidebar h2{
+margin-top:25px;
+margin-bottom:15px;
+}
+
+/* =========================
+ESTADISTICAS
+========================= */
+
+.estadisticas{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+}
+
+.card-stat{
+flex:1;
+background:#222;
+padding:15px;
+border-radius:15px;
+text-align:center;
+}
+
+.card-stat h3{
+font-size:14px;
+margin-bottom:8px;
+opacity:.7;
+}
+
+.card-stat p{
+font-size:28px;
+font-weight:bold;
+}
+
+/* =========================
+RANKING
+========================= */
+
+.rank-item{
+background:#222;
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+font-size:14px;
+line-height:1.5;
+}
+
+/* =========================
+RUTAS
+========================= */
+
+.ruta-item{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+cursor:pointer;
+transition:.3s;
+}
+
+.ruta-item:hover{
+background:#333;
+}
+
+.ruta-item h3{
+margin-bottom:8px;
+font-size:16px;
+}
+
+/* =========================
+MAPA
+========================= */
 
 #map{
 height:100vh;
 width:100%;
 }
 
+/* =========================
+POPUPS
+========================= */
+
+.leaflet-popup-content{
+font-size:14px;
+line-height:1.5;
+}
+
+.leaflet-popup-content h2{
+margin-bottom:10px;
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:768px){
+
+#sidebar{
+width:260px;
+}
+
+.logo{
+font-size:32px;
+}
+
+.subtitulo{
+font-size:16px;
+}
+
+}
+
 </style>
+
 </head>
+
 <body>
 
-<!-- INICIO -->
+<!-- =========================
+INICIO
+========================= -->
 
 <div id="inicio" class="pantalla activa">
 
@@ -172,27 +369,38 @@ PARQUE COLLICO
 Trail Running · MTB · Trekking · Naturaleza
 </div>
 
-<button class="boton" onclick="mostrar('registro')">
+<button class="boton"
+onclick="mostrar('registro')">
+
 INGRESAR
+
 </button>
 
 </div>
 
-<!-- REGISTRO -->
+<!-- =========================
+REGISTRO
+========================= -->
 
 <div id="registro" class="pantalla">
 
 <div class="form-card">
 
-<h2>Registro de Ingreso</h2>
+<h2>
+Registro de Ingreso
+</h2>
 
-<input id="nombre" placeholder="Nombre completo">
+<input id="nombre"
+placeholder="Nombre completo">
 
-<input id="rut" placeholder="RUT">
+<input id="rut"
+placeholder="RUT">
 
-<input id="telefono" placeholder="Teléfono">
+<input id="telefono"
+placeholder="Teléfono">
 
-<input id="correo" placeholder="Correo electrónico">
+<input id="correo"
+placeholder="Correo electrónico">
 
 <div class="terminos">
 
@@ -200,21 +408,20 @@ INGRESAR
 
 <br>
 
-El ingreso al Parque Collico implica la aceptación de los presentes términos y condiciones.
+El ingreso al Parque Collico implica
+la aceptación de estos términos.
 
-Toda actividad de senderismo, trail running, MTB, descenso, XC y recreación se realiza bajo exclusiva responsabilidad del visitante.
+Toda actividad se realiza bajo
+responsabilidad del visitante.
 
-El usuario declara conocer los riesgos propios de actividades desarrolladas en entornos naturales.
+No hacer fuego.
 
-Se prohíbe dañar flora, fauna, infraestructura y senderos.
+Respetar flora y fauna.
 
-Las mascotas deberán permanecer bajo control de sus responsables.
+Mantener mascotas bajo control.
 
-Se prohíbe encender fuego.
-
-El parque podrá restringir accesos por razones climáticas o de seguridad.
-
-Al registrarse el visitante autoriza el uso de sus datos para control de acceso y seguridad.
+El parque podrá restringir accesos
+por razones climáticas o seguridad.
 
 </div>
 
@@ -228,21 +435,86 @@ Acepto términos y condiciones
 
 </div>
 
-<button class="btn-entrar" onclick="entrarMapa()">
+<button class="btn-entrar"
+onclick="entrarMapa()">
+
 ENTRAR AL PARQUE
+
 </button>
 
 </div>
 
 </div>
 
-<!-- MAPA -->
+<!-- =========================
+MAPA
+========================= -->
 
 <div id="mapa" class="pantalla">
+
+<!-- SIDEBAR -->
+
+<div id="sidebar">
+
+<h1>
+PARQUE COLLICO
+</h1>
+
+<!-- ESTADISTICAS -->
+
+<div class="estadisticas">
+
+<div class="card-stat">
+
+<h3>Visitantes</h3>
+
+<p id="contador-personas">
+0
+</p>
+
+</div>
+
+<div class="card-stat">
+
+<h3>Rutas usadas</h3>
+
+<p id="contador-rutas">
+0
+</p>
+
+</div>
+
+</div>
+
+<!-- RANKING -->
+
+<h2>
+Rutas más utilizadas
+</h2>
+
+<div id="ranking-rutas"></div>
+
+<!-- LISTA -->
+
+<h2>
+Senderos
+</h2>
+
+<div id="lista-rutas"></div>
+
+</div>
+
+<!-- MAPA -->
+
 <div id="map"></div>
+
 </div>
 
 <script>
+
+/* =========================
+CAMBIO PANTALLAS
+========================= */
 
 function mostrar(id){
 
@@ -256,26 +528,39 @@ document
 
 }
 
+/* =========================
+ENTRAR MAPA
+========================= */
+
 function entrarMapa(){
 
-let nombre=document.getElementById("nombre").value;
-let rut=document.getElementById("rut").value;
-let telefono=document.getElementById("telefono").value;
-let correo=document.getElementById("correo").value;
-let acepta=document.getElementById("acepta").checked;
+let nombre =
+document.getElementById("nombre").value;
+
+let rut =
+document.getElementById("rut").value;
+
+let telefono =
+document.getElementById("telefono").value;
+
+let correo =
+document.getElementById("correo").value;
+
+let acepta =
+document.getElementById("acepta").checked;
 
 if(!nombre || !rut || !telefono || !correo){
 
 alert("Completa todos los campos");
-
 return;
+
 }
 
 if(!acepta){
 
-alert("Debes aceptar los términos");
-
+alert("Debes aceptar términos");
 return;
+
 }
 
 mostrar("mapa");
@@ -284,39 +569,443 @@ setTimeout(iniciarMapa,300);
 
 }
 
+/* =========================
+MAPA
+========================= */
+
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
-window.mapaCreado=true;
+window.mapaCreado = true;
 
-const map=L.map('map').setView([-39.82,-73.18],14);
+/* =========================
+CONTADOR VISITAS
+========================= */
+
+let visitas =
+localStorage.getItem("visitasParque");
+
+if(!visitas){
+
+visitas = 0;
+
+}
+
+visitas++;
+
+localStorage.setItem(
+"visitasParque",
+visitas
+);
+
+document.getElementById(
+"contador-personas"
+).innerText = visitas;
+
+/* =========================
+RUTAS STATS
+========================= */
+
+let rutasStats =
+JSON.parse(
+localStorage.getItem("rutasStats")
+) || {};
+
+/* =========================
+ACTUALIZAR RANKING
+========================= */
+
+function actualizarRanking(){
+
+const ranking =
+document.getElementById(
+"ranking-rutas"
+);
+
+ranking.innerHTML = "";
+
+const ordenadas =
+Object.entries(rutasStats)
+.sort((a,b)=>b[1]-a[1]);
+
+ordenadas.slice(0,5)
+.forEach((ruta,index)=>{
+
+const item =
+document.createElement("div");
+
+item.className = "rank-item";
+
+item.innerHTML = `
+
+${index+1}. ${ruta[0]}
+
+<br>
+
+<strong>
+${ruta[1]} visitas
+</strong>
+
+`;
+
+ranking.appendChild(item);
+
+});
+
+document.getElementById(
+"contador-rutas"
+).innerText =
+Object.keys(rutasStats).length;
+
+}
+
+actualizarRanking();
+
+/* =========================
+MAPA
+========================= */
+
+const map = L.map('map').setView(
+[-39.82,-73.18],
+14
+);
+
+/* =========================
+BASE MAPA
+========================= */
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
 ).addTo(map);
 
-omnivore.kml('rutas.kml')
-.on('ready',function(){
+/* =========================
+VOZ
+========================= */
 
-map.fitBounds(this.getBounds());
+function hablar(texto){
+
+const voz =
+new SpeechSynthesisUtterance(texto);
+
+voz.lang = "es-CL";
+voz.rate = 1;
+
+speechSynthesis.speak(voz);
+
+}
+
+/* BIENVENIDA */
+
+hablar(
+"Bienvenido a Parque Collico"
+);
+
+/* =========================
+COLORES
+========================= */
+
+const colores = [
+
+'#ff3b30',
+'#34c759',
+'#007aff',
+'#ff9500',
+'#af52de',
+'#5ac8fa',
+'#ff2d55',
+'#8e8e93',
+'#00c7be',
+'#ffd60a'
+
+];
+
+let colorIndex = 0;
+
+/* =========================
+LISTA RUTAS
+========================= */
+
+const listaRutas =
+document.getElementById(
+"lista-rutas"
+);
+
+/* =========================
+CARGAR KML
+========================= */
+
+fetch('rutas.kml')
+
+.then(res=>res.text())
+
+.then(kmlText=>{
+
+const parser =
+new DOMParser();
+
+const kml =
+parser.parseFromString(
+kmlText,
+'text/xml'
+);
+
+const geojson =
+toGeoJSON.kml(kml);
+
+/* =========================
+CREAR RUTAS
+========================= */
+
+const rutas = L.geoJSON(geojson, {
+
+style:function(){
+
+const color =
+colores[
+colorIndex++ % colores.length
+];
+
+return{
+
+color:color,
+weight:5,
+opacity:1
+
+};
+
+},
+
+onEachFeature:function(feature,layer){
+
+let nombre =
+feature.properties.name ||
+"Ruta Parque";
+
+let descripcion =
+feature.properties.description ||
+"Sendero Parque Collico";
+
+/* POPUP */
+
+layer.bindPopup(`
+
+<h2>${nombre}</h2>
+
+<div>
+${descripcion}
+</div>
+
+`);
+
+layer.nombreRuta = nombre;
+
+/* PANEL */
+
+const item =
+document.createElement("div");
+
+item.className =
+"ruta-item";
+
+item.innerHTML = `
+
+<h3>${nombre}</h3>
+
+<p>
+Ver sendero
+</p>
+
+`;
+
+item.onclick = ()=>{
+
+map.fitBounds(
+layer.getBounds()
+);
+
+layer.openPopup();
+
+/* SUMAR USO */
+
+if(!rutasStats[nombre]){
+
+rutasStats[nombre] = 0;
+
+}
+
+rutasStats[nombre]++;
+
+localStorage.setItem(
+"rutasStats",
+JSON.stringify(rutasStats)
+);
+
+actualizarRanking();
+
+};
+
+listaRutas.appendChild(item);
+
+}
+
+}).addTo(map);
+
+/* AJUSTAR */
+
+map.fitBounds(
+rutas.getBounds()
+);
 
 })
-.addTo(map);
+
+.catch(error=>{
+
+console.log(
+"ERROR KML:",
+error
+);
+
+});
+
+/* =========================
+GPS
+========================= */
+
+let marcadorUsuario = null;
+
+let rutasAvisadas = [];
 
 map.locate({
-setView:true,
-maxZoom:16
+
+watch:true,
+enableHighAccuracy:true,
+setView:false
+
 });
+
+/* =========================
+UBICACION
+========================= */
 
 map.on('locationfound',e=>{
 
-L.marker(e.latlng)
+const latlng = e.latlng;
+
+/* MARCADOR */
+
+if(marcadorUsuario){
+
+marcadorUsuario.setLatLng(latlng);
+
+}else{
+
+marcadorUsuario =
+L.marker(latlng)
 .addTo(map)
-.bindPopup("Tu ubicación")
-.openPopup();
+.bindPopup("Tu ubicación");
+
+}
+
+/* PROXIMIDAD */
+
+map.eachLayer(layer=>{
+
+if(layer instanceof L.Polyline){
+
+const puntos =
+layer.getLatLngs();
+
+puntos.forEach(p=>{
+
+if(Array.isArray(p)) return;
+
+const distancia =
+map.distance(latlng,p);
+
+if(distancia < 80){
+
+if(
+!rutasAvisadas.includes(
+layer.nombreRuta
+)
+){
+
+rutasAvisadas.push(
+layer.nombreRuta
+);
+
+/* VOZ */
+
+hablar(
+`Te estás acercando a ${layer.nombreRuta}`
+);
+
+/* ESTADISTICAS */
+
+if(!rutasStats[layer.nombreRuta]){
+
+rutasStats[layer.nombreRuta] = 0;
+
+}
+
+rutasStats[layer.nombreRuta]++;
+
+localStorage.setItem(
+"rutasStats",
+JSON.stringify(rutasStats)
+);
+
+actualizarRanking();
+
+}
+
+}
 
 });
+
+}
+
+});
+
+});
+
+/* =========================
+ERROR GPS
+========================= */
+
+map.on('locationerror',()=>{
+
+alert(
+"Debes activar el GPS"
+);
+
+});
+
+/* =========================
+CIERRE PARQUE
+========================= */
+
+setInterval(()=>{
+
+const ahora =
+new Date();
+
+if(
+ahora.getHours()===17 &&
+ahora.getMinutes()===30
+){
+
+hablar(
+"Atención. El parque cerrará en 30 minutos"
+);
+
+}
+
+},60000);
 
 }
 
@@ -324,3 +1013,4 @@ L.marker(e.latlng)
 
 </body>
 </html>
+```
