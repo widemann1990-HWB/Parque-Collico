@@ -1,13 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Parque Collico</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
 
 <style>
@@ -16,7 +21,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -25,13 +30,20 @@ color:white;
 }
 
 /* PANTALLAS */
-.pantalla{ display:none; }
-.activa{ display:block; }
+.pantalla{
+display:none;
+}
+
+.activa{
+display:block;
+}
 
 /* INICIO */
+
 #inicio{
 position:relative;
 height:100vh;
+overflow:hidden;
 }
 
 #inicio img{
@@ -46,24 +58,26 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.4);
+background:rgba(0,0,0,.45);
 }
 
 .logo{
 position:absolute;
-top:60px;
+top:70px;
 width:100%;
 text-align:center;
-font-size:34px;
+font-size:40px;
 font-weight:bold;
+letter-spacing:2px;
 }
 
 .subtitulo{
 position:absolute;
-bottom:120px;
+bottom:130px;
 width:100%;
 text-align:center;
 font-size:18px;
+padding:0 20px;
 }
 
 .boton{
@@ -71,15 +85,17 @@ position:absolute;
 bottom:50px;
 left:50%;
 transform:translateX(-50%);
-padding:15px 30px;
+padding:16px 35px;
 border:none;
-border-radius:30px;
+border-radius:40px;
 background:#2c7a7b;
 color:white;
 font-size:18px;
+cursor:pointer;
 }
 
 /* REGISTRO */
+
 #registro{
 background:white;
 color:black;
@@ -92,28 +108,35 @@ max-width:500px;
 margin:auto;
 }
 
+.form-card h2{
+margin-bottom:20px;
+}
+
 input{
 width:100%;
-padding:12px;
+padding:14px;
 margin-bottom:12px;
 border-radius:10px;
 border:1px solid #ccc;
+font-size:15px;
 }
 
 .terminos{
-height:150px;
+height:170px;
 overflow:auto;
-background:#f3f3f3;
-padding:10px;
+background:#f2f2f2;
+padding:12px;
 border-radius:10px;
 margin-bottom:10px;
 font-size:13px;
+line-height:1.5;
 }
 
 .check{
 display:flex;
 gap:10px;
 margin-bottom:15px;
+align-items:center;
 }
 
 .btn-entrar{
@@ -122,26 +145,41 @@ padding:15px;
 background:#2c7a7b;
 color:white;
 border:none;
-border-radius:10px;
+border-radius:12px;
+font-size:17px;
+cursor:pointer;
 }
 
 /* MAPA */
+
 #map{
 height:100vh;
 width:100%;
 }
 
+/* POPUP */
+
+.leaflet-popup-content{
+font-size:14px;
+line-height:1.4;
+}
+
 </style>
+
 </head>
 <body>
 
-<!-- INICIO -->
+<!-- PANTALLA INICIO -->
+
 <div id="inicio" class="pantalla activa">
 
 <img src="img/foto1.jpg">
+
 <div class="overlay"></div>
 
-<div class="logo">PARQUE COLLICO</div>
+<div class="logo">
+PARQUE COLLICO
+</div>
 
 <div class="subtitulo">
 Trail Running · MTB · Trekking · Naturaleza
@@ -154,6 +192,7 @@ INGRESAR
 </div>
 
 <!-- REGISTRO -->
+
 <div id="registro" class="pantalla">
 
 <div class="form-card">
@@ -161,107 +200,381 @@ INGRESAR
 <h2>Registro de Ingreso</h2>
 
 <input id="nombre" placeholder="Nombre completo">
+
 <input id="rut" placeholder="RUT">
+
 <input id="telefono" placeholder="Teléfono">
+
 <input id="correo" placeholder="Correo electrónico">
 
 <div class="terminos">
-El ingreso al Parque Collico implica la aceptación de estos términos.
 
-Las actividades se realizan bajo responsabilidad del visitante.
+El ingreso al Parque Collico implica la aceptación
+de estos términos y condiciones.
+
+Las actividades se realizan bajo responsabilidad
+del visitante.
+
 Se prohíbe dañar flora y fauna.
+
 No hacer fuego.
-Mascotas bajo control.
+
+Las mascotas deben mantenerse bajo control.
+
+Respetar señaléticas y senderos autorizados.
+
 </div>
 
 <div class="check">
+
 <input type="checkbox" id="acepta">
-<label>Acepto términos</label>
+
+<label>Acepto términos y condiciones</label>
+
 </div>
 
 <button class="btn-entrar" onclick="entrarMapa()">
+
 ENTRAR AL PARQUE
+
 </button>
 
 </div>
+
 </div>
 
 <!-- MAPA -->
+
 <div id="mapa" class="pantalla">
+
 <div id="map"></div>
+
 </div>
 
 <script>
 
+// ======================================
+// CAMBIAR PANTALLAS
+// ======================================
+
 function mostrar(id){
+
 document.querySelectorAll('.pantalla')
 .forEach(p=>p.classList.remove('activa'));
 
-document.getElementById(id).classList.add('activa');
+document.getElementById(id)
+.classList.add('activa');
+
 }
+
+
+// ======================================
+// ENTRAR AL MAPA
+// ======================================
 
 function entrarMapa(){
 
-let nombre=document.getElementById("nombre").value;
-let rut=document.getElementById("rut").value;
-let telefono=document.getElementById("telefono").value;
-let correo=document.getElementById("correo").value;
-let acepta=document.getElementById("acepta").checked;
+let nombre =
+document.getElementById("nombre").value;
+
+let rut =
+document.getElementById("rut").value;
+
+let telefono =
+document.getElementById("telefono").value;
+
+let correo =
+document.getElementById("correo").value;
+
+let acepta =
+document.getElementById("acepta").checked;
 
 if(!nombre || !rut || !telefono || !correo){
+
 alert("Completa todos los campos");
 return;
+
 }
 
 if(!acepta){
+
 alert("Debes aceptar los términos");
 return;
+
 }
 
 mostrar("mapa");
+
 setTimeout(iniciarMapa,300);
 
 }
 
+
+// ======================================
+// INICIAR MAPA
+// ======================================
+
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
+
 window.mapaCreado=true;
+
+
+// ======================================
+// MAPA
+// ======================================
 
 const map = L.map('map').setView([-39.82,-73.18],14);
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+attribution:'© OpenStreetMap'
+}
 ).addTo(map);
 
-// 🔥 CARGAR KML (USA COLORES DEL KML)
-omnivore.kml('rutas.kml')
+
+// ======================================
+// VOZ
+// ======================================
+
+function hablar(texto){
+
+const voz =
+new SpeechSynthesisUtterance(texto);
+
+voz.lang = "es-CL";
+voz.rate = 1;
+voz.pitch = 1;
+
+speechSynthesis.speak(voz);
+
+}
+
+
+// BIENVENIDA
+
+hablar("Bienvenido a Parque Collico");
+
+
+// ======================================
+// COLORES RUTAS
+// ======================================
+
+const colores = [
+
+'red',
+'blue',
+'green',
+'orange',
+'purple',
+'brown',
+'black'
+
+];
+
+let colorIndex = 0;
+
+
+// ======================================
+// CARGAR KML
+// ======================================
+
+omnivore.kml(
+'Parque Collico · Bosque Abierto · Levantamiento Territorial v2.5 final figth.kml'
+)
+
 .on('ready', function(){
 
 console.log("KML cargado correctamente");
 
-// NO usamos setStyle → respeta colores del KML
+this.eachLayer(function(layer){
+
+const color =
+colores[colorIndex % colores.length];
+
+colorIndex++;
+
+if(layer.setStyle){
+
+layer.setStyle({
+color: color,
+weight: 5
+});
+
+}
+
+
+// ======================================
+// NOMBRE RUTA
+// ======================================
+
+let nombreRuta = "Ruta Parque Collico";
+
+if(layer.feature &&
+layer.feature.properties &&
+layer.feature.properties.name){
+
+nombreRuta =
+layer.feature.properties.name;
+
+}
+
+layer.nombreRuta = nombreRuta;
+
+
+// ======================================
+// POPUP
+// ======================================
+
+layer.bindPopup(`
+
+<h3>${nombreRuta}</h3>
+
+<p>
+Recorrido disponible en Parque Collico.
+</p>
+
+<p>
+Disfruta la naturaleza y respeta las señalizaciones.
+</p>
+
+`);
+
+});
+
+
 map.fitBounds(this.getBounds());
 
 })
+
 .on('error', function(e){
 
 console.log("ERROR KML:", e);
 
 })
+
 .addTo(map);
 
-// 📍 UBICACIÓN
-map.locate({ setView:true, maxZoom:16 });
+
+// ======================================
+// GPS USUARIO
+// ======================================
+
+let marcadorUsuario = null;
+
+let rutasAvisadas = [];
+
+map.locate({
+
+watch:true,
+setView:true,
+maxZoom:16,
+enableHighAccuracy:true
+
+});
+
+
+// ======================================
+// UBICACIÓN ENCONTRADA
+// ======================================
 
 map.on('locationfound', e => {
 
-L.marker(e.latlng)
+const latlng = e.latlng;
+
+
+// marcador usuario
+
+if(marcadorUsuario){
+
+marcadorUsuario.setLatLng(latlng);
+
+}else{
+
+marcadorUsuario = L.marker(latlng)
 .addTo(map)
-.bindPopup("Tu ubicación")
-.openPopup();
+.bindPopup("Tu ubicación");
+
+}
+
+
+// ======================================
+// DETECTAR CERCANÍA RUTAS
+// ======================================
+
+map.eachLayer(layer => {
+
+if(layer instanceof L.Polyline){
+
+const puntos = layer.getLatLngs();
+
+puntos.forEach(punto => {
+
+const distancia =
+map.distance(latlng,punto);
+
+
+// DISTANCIA 80 METROS
+
+if(distancia < 80){
+
+if(!rutasAvisadas.includes(layer.nombreRuta)){
+
+rutasAvisadas.push(layer.nombreRuta);
+
+hablar(
+`Te estás acercando a ${layer.nombreRuta}`
+);
+
+}
+
+}
 
 });
+
+}
+
+});
+
+});
+
+
+// ======================================
+// ERROR GPS
+// ======================================
+
+map.on('locationerror', () => {
+
+alert(
+"Activa el GPS para usar el mapa correctamente"
+);
+
+});
+
+
+// ======================================
+// AVISO CIERRE
+// ======================================
+
+setInterval(() => {
+
+const ahora = new Date();
+
+const horas = ahora.getHours();
+
+const minutos = ahora.getMinutes();
+
+if(horas === 17 && minutos === 30){
+
+hablar(
+"Atención. El parque cerrará en 30 minutos"
+);
+
+}
+
+},60000);
 
 }
 
@@ -269,3 +582,4 @@ L.marker(e.latlng)
 
 </body>
 </html>
+```
