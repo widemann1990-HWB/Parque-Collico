@@ -1,4 +1,4 @@
-```html id="6h7l9p"
+```html id="parque-collico-completo"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,10 +24,6 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
 
-/* =========================
-GENERAL
-========================= */
-
 *{
 margin:0;
 padding:0;
@@ -40,10 +36,6 @@ background:#111;
 overflow:hidden;
 color:white;
 }
-
-/* =========================
-PANTALLAS
-========================= */
 
 .pantalla{
 display:none;
@@ -139,7 +131,6 @@ background:#2c7a7b;
 color:white;
 font-size:18px;
 cursor:pointer;
-z-index:2;
 }
 
 /* =========================
@@ -210,12 +201,15 @@ margin-bottom:20px;
 text-align:center;
 }
 
-input{
+input,
+select{
 width:100%;
 padding:14px;
 margin-bottom:12px;
 border:1px solid #ccc;
 border-radius:10px;
+font-size:15px;
+background:white;
 }
 
 .terminos{
@@ -234,6 +228,7 @@ display:flex;
 gap:10px;
 align-items:center;
 margin-bottom:20px;
+color:black;
 }
 
 .check input{
@@ -289,31 +284,6 @@ height:100vh;
 width:100%;
 }
 
-/* =========================
-RUTAS
-========================= */
-
-.ruta-item{
-background:#222;
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
-cursor:pointer;
-}
-
-.ruta-item h3{
-margin-bottom:10px;
-}
-
-.ruta-info{
-font-size:13px;
-line-height:1.6;
-}
-
-/* =========================
-ESTADISTICAS
-========================= */
-
 .estadisticas{
 display:flex;
 gap:10px;
@@ -334,7 +304,7 @@ margin-bottom:8px;
 }
 
 .card-stat p{
-font-size:28px;
+font-size:24px;
 font-weight:bold;
 }
 
@@ -345,9 +315,22 @@ border-radius:12px;
 margin-bottom:10px;
 }
 
-/* =========================
-RESPONSIVE
-========================= */
+.ruta-item{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+.ruta-item h3{
+margin-bottom:10px;
+}
+
+.ruta-info{
+font-size:13px;
+line-height:1.6;
+}
 
 @media(max-width:768px){
 
@@ -452,6 +435,22 @@ placeholder="RUT">
 <input id="telefono"
 placeholder="Teléfono">
 
+<select id="genero">
+
+<option value="">
+Selecciona sexo
+</option>
+
+<option value="Hombre">
+Hombre
+</option>
+
+<option value="Mujer">
+Mujer
+</option>
+
+</select>
+
 <input id="correo"
 placeholder="Correo electrónico">
 
@@ -523,8 +522,32 @@ PARQUE COLLICO
 
 <h3>Rutas</h3>
 
-<p id="contador-rutas">
-0
+<p>
+23
+</p>
+
+</div>
+
+</div>
+
+<div class="estadisticas">
+
+<div class="card-stat">
+
+<h3>Km Totales</h3>
+
+<p>
+38,25
+</p>
+
+</div>
+
+<div class="card-stat">
+
+<h3>Senderos</h3>
+
+<p>
+23
 </p>
 
 </div>
@@ -600,13 +623,22 @@ document.getElementById("rut").value;
 let telefono =
 document.getElementById("telefono").value;
 
+let genero =
+document.getElementById("genero").value;
+
 let correo =
 document.getElementById("correo").value;
 
 let acepta =
 document.getElementById("acepta").checked;
 
-if(!nombre || !rut || !telefono || !correo){
+if(
+!nombre ||
+!rut ||
+!telefono ||
+!genero ||
+!correo
+){
 
 alert("Completa todos los campos");
 return;
@@ -670,59 +702,6 @@ document.getElementById(
 "contador-personas"
 ).innerText = visitas;
 
-/* RANKING */
-
-let rutasStats =
-JSON.parse(
-localStorage.getItem("rutasStats")
-) || {};
-
-function actualizarRanking(){
-
-const ranking =
-document.getElementById(
-"ranking-rutas"
-);
-
-ranking.innerHTML = "";
-
-const ordenadas =
-Object.entries(rutasStats)
-.sort((a,b)=>b[1]-a[1]);
-
-ordenadas.slice(0,5)
-.forEach((ruta,index)=>{
-
-const item =
-document.createElement("div");
-
-item.className="rank-item";
-
-item.innerHTML=`
-
-${index+1}. ${ruta[0]}
-
-<br>
-
-<strong>
-${ruta[1]} visitas
-</strong>
-
-`;
-
-ranking.appendChild(item);
-
-});
-
-document.getElementById(
-"contador-rutas"
-).innerText =
-Object.keys(rutasStats).length;
-
-}
-
-actualizarRanking();
-
 /* MAPA */
 
 const map = L.map('map').setView(
@@ -737,9 +716,7 @@ attribution:'© OpenStreetMap'
 }
 ).addTo(map);
 
-/* =========================
-COLORES
-========================= */
+/* COLORES */
 
 const colores = [
 
@@ -755,9 +732,7 @@ const colores = [
 
 ];
 
-/* =========================
-DATOS SENDEROS
-========================= */
+/* DATOS RUTAS */
 
 const datosSenderos = {
 
@@ -780,25 +755,9 @@ distancia:"0.65 km",
 dificultad:"MODERADO",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR-XC-DH"
-},
-
-"ANDROIDE- MACHAQUE 2":{
-distancia:"1.80 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"DH-XC-TR"
-},
-
-"MIRADOR DEL PUMA":{
-distancia:"5.08 km",
-dificultad:"MODERADO",
-direccion:"BIDIRECCIONAL",
-disciplina:"RP-TR"
 }
 
 };
-
-/* LISTA */
 
 const listaRutas =
 document.getElementById(
@@ -873,8 +832,6 @@ disciplina:"No disponible"
 
 };
 
-/* POPUP */
-
 layer.bindPopup(`
 
 <h2>${nombre}</h2>
@@ -901,11 +858,7 @@ ${datos.disciplina}
 
 `);
 
-/* GUARDAR NOMBRE */
-
 layer.nombreRuta = nombre;
-
-/* PANEL */
 
 const item =
 document.createElement("div");
@@ -947,8 +900,6 @@ listaRutas.appendChild(item);
 
 }).addTo(map);
 
-/* AJUSTAR */
-
 map.fitBounds(
 rutas.getBounds()
 );
@@ -968,9 +919,7 @@ alert(
 
 });
 
-/* =========================
-GPS
-========================= */
+/* GPS */
 
 let marcadorUsuario = null;
 
@@ -999,8 +948,6 @@ L.marker(latlng)
 .bindPopup("Tu ubicación");
 
 }
-
-/* PROXIMIDAD */
 
 map.eachLayer(layer=>{
 
@@ -1044,8 +991,6 @@ hablar(
 
 });
 
-/* ERROR GPS */
-
 map.on('locationerror',()=>{
 
 alert(
@@ -1054,9 +999,7 @@ alert(
 
 });
 
-/* =========================
-CIERRE PARQUE
-========================= */
+/* CIERRE PARQUE */
 
 setInterval(()=>{
 
