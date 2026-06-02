@@ -1,4 +1,4 @@
-```html id="parque-collico-final"
+```html id="codigo-parque-collico"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,7 +18,7 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<!-- TOGEOJSON -->
+<!-- KML -->
 
 <script src="https://unpkg.com/@tmcw/togeojson"></script>
 
@@ -32,10 +32,14 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#111;
 overflow:hidden;
+background:#111;
 color:white;
 }
+
+/* ======================
+PANTALLAS
+====================== */
 
 .pantalla{
 display:none;
@@ -45,9 +49,9 @@ display:none;
 display:block;
 }
 
-/* =========================
-PORTADA
-========================= */
+/* ======================
+INICIO
+====================== */
 
 #inicio{
 position:relative;
@@ -78,26 +82,23 @@ transform:translateX(-50%);
 text-align:center;
 z-index:2;
 width:100%;
-padding:0 20px;
 }
 
 .logo h1{
-font-size:48px;
-font-weight:bold;
+font-size:50px;
 margin-bottom:10px;
 }
 
 .logo h2{
 font-size:28px;
+margin-bottom:10px;
 font-weight:300;
 letter-spacing:4px;
-margin-bottom:8px;
 }
 
 .logo h3{
 font-size:18px;
 letter-spacing:6px;
-color:#ddd;
 }
 
 .subtitulo{
@@ -106,7 +107,6 @@ bottom:120px;
 width:100%;
 text-align:center;
 font-size:18px;
-padding:0 20px;
 z-index:2;
 }
 
@@ -124,9 +124,9 @@ font-size:18px;
 cursor:pointer;
 }
 
-/* =========================
+/* ======================
 REGISTRO
-========================= */
+====================== */
 
 #registro{
 position:relative;
@@ -171,7 +171,7 @@ text-align:center;
 }
 
 .sub-bienvenida{
-font-size:20px;
+font-size:22px;
 margin-bottom:30px;
 text-align:center;
 }
@@ -201,7 +201,7 @@ font-size:15px;
 }
 
 .terminos{
-height:180px;
+height:160px;
 overflow:auto;
 background:#f3f3f3;
 padding:15px;
@@ -232,12 +232,17 @@ font-size:16px;
 cursor:pointer;
 }
 
-/* =========================
+/* ======================
 MAPA
-========================= */
+====================== */
 
 #mapa{
 position:relative;
+width:100%;
+height:100vh;
+}
+
+#map{
 width:100%;
 height:100vh;
 }
@@ -248,25 +253,19 @@ top:0;
 left:0;
 width:340px;
 height:100vh;
-background:#151515;
+background:#111;
 z-index:1000;
 overflow:auto;
 padding:20px;
 }
 
 #sidebar h1{
-font-size:28px;
 margin-bottom:15px;
+font-size:28px;
 }
 
 #sidebar h2{
-margin-top:20px;
-margin-bottom:15px;
-}
-
-#map{
-height:100vh;
-width:100%;
+margin:20px 0;
 }
 
 .estadisticas{
@@ -299,16 +298,10 @@ padding:15px;
 border-radius:15px;
 margin-bottom:15px;
 cursor:pointer;
-transition:.3s;
-}
-
-.ruta-item:hover{
-background:#2c2c2c;
 }
 
 .ruta-item h3{
 margin-bottom:10px;
-font-size:18px;
 }
 
 .ruta-info{
@@ -330,10 +323,6 @@ font-size:34px;
 font-size:20px;
 }
 
-.logo h3{
-font-size:14px;
-}
-
 }
 
 </style>
@@ -342,11 +331,12 @@ font-size:14px;
 
 <body>
 
-<!-- =========================
-INICIO
-========================= -->
+<!-- ======================
+PORTADA
+====================== -->
 
-<div id="inicio" class="pantalla activa">
+<div id="inicio"
+class="pantalla activa">
 
 <img src="img/foto1.jpg">
 
@@ -363,7 +353,7 @@ Bosque Abierto
 </h2>
 
 <h3>
-Arauco
+ARAUCO
 </h3>
 
 </div>
@@ -381,11 +371,12 @@ INGRESAR
 
 </div>
 
-<!-- =========================
+<!-- ======================
 REGISTRO
-========================= -->
+====================== -->
 
-<div id="registro" class="pantalla">
+<div id="registro"
+class="pantalla">
 
 <div class="registro-fondo"></div>
 
@@ -472,11 +463,12 @@ ENTRAR AL PARQUE
 
 </div>
 
-<!-- =========================
+<!-- ======================
 MAPA
-========================= -->
+====================== -->
 
-<div id="mapa" class="pantalla">
+<div id="mapa"
+class="pantalla">
 
 <div id="sidebar">
 
@@ -488,7 +480,9 @@ PARQUE COLLICO
 
 <div class="card-stat">
 
-<h3>Visitantes</h3>
+<h3>
+Visitantes
+</h3>
 
 <p id="contador-personas">
 0
@@ -498,7 +492,9 @@ PARQUE COLLICO
 
 <div class="card-stat">
 
-<h3>Rutas</h3>
+<h3>
+Rutas
+</h3>
 
 <p>
 23
@@ -512,7 +508,9 @@ PARQUE COLLICO
 
 <div class="card-stat">
 
-<h3>Km Totales</h3>
+<h3>
+Km Totales
+</h3>
 
 <p>
 38,25
@@ -522,7 +520,9 @@ PARQUE COLLICO
 
 <div class="card-stat">
 
-<h3>Senderos</h3>
+<h3>
+Senderos
+</h3>
 
 <p>
 23
@@ -546,9 +546,9 @@ Senderos
 
 <script>
 
-/* =========================
-PANTALLAS
-========================= */
+/* ======================
+CAMBIAR PANTALLAS
+====================== */
 
 function mostrar(id){
 
@@ -562,9 +562,9 @@ document
 
 }
 
-/* =========================
-VOZ
-========================= */
+/* ======================
+BOT VOZ
+====================== */
 
 function hablar(texto){
 
@@ -574,15 +574,16 @@ const voz =
 new SpeechSynthesisUtterance(texto);
 
 voz.lang = "es-CL";
+
 voz.rate = 1;
 
 speechSynthesis.speak(voz);
 
 }
 
-/* =========================
+/* ======================
 ENTRAR
-========================= */
+====================== */
 
 function entrarMapa(){
 
@@ -647,7 +648,7 @@ Bosque Abierto Arauco.
 El parque cuenta con 23 senderos
 y 38 coma 25 kilómetros de rutas.
 
-Disfruta tu estadía y la naturaleza.`
+Disfruta tu estadía.`
 
 );
 
@@ -657,22 +658,22 @@ Disfruta tu estadía y la naturaleza.`
 
 }
 
-/* =========================
-DATOS SENDEROS
-========================= */
+/* ======================
+DATOS RUTAS
+====================== */
 
 const datosSenderos = {
 
 "BUDICALI":{
 distancia:"1,37 km",
-dificultad:"FÁCIL",
+dificultad:"FACIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR-XC"
 },
 
 "MIRADOR KUNSTMANN":{
 distancia:"1,04 km",
-dificultad:"FÁCIL",
+dificultad:"FACIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"RP-TR-DH"
 },
@@ -756,87 +757,87 @@ disciplina:"TR"
 
 "CHELA TRACK":{
 distancia:"0,89 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR"
 },
 
 "SPOT 23":{
 distancia:"1,97 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"SOLO BAJADA",
 disciplina:"DH-XC"
 },
 
 "SUAVETONA LEX ONE":{
 distancia:"2,28 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR"
 },
 
 "EL MURO":{
 distancia:"1,59 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR-XC"
 },
 
 "LA TOXICA":{
 distancia:"1,97 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR"
 },
 
 "MACHAQUE 1":{
 distancia:"1,2 km",
-dificultad:"DIFÍCIL",
+dificultad:"DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR-XC"
 },
 
 "SUAVETONES AL MIRADOR":{
 distancia:"0,95 km",
-dificultad:"MUY DIFÍCIL",
+dificultad:"MUY DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR"
 },
 
 "LALO CURA":{
 distancia:"1,25 km",
-dificultad:"MUY DIFÍCIL",
+dificultad:"MUY DIFICIL",
 direccion:"SOLO BAJADA",
 disciplina:"TR"
 },
 
 "VIETNAM":{
 distancia:"0,77 km",
-dificultad:"MUY DIFÍCIL",
+dificultad:"MUY DIFICIL",
 direccion:"SOLO SUBIDA",
 disciplina:"TR"
 },
 
 "CASCADA COLLICO":{
 distancia:"0,56 km",
-dificultad:"MUY DIFÍCIL",
+dificultad:"MUY DIFICIL",
 direccion:"BIDIRECCIONAL",
 disciplina:"TR"
 }
 
 };
 
-/* =========================
-MAPA
-========================= */
+/* ======================
+INICIAR MAPA
+====================== */
 
 function iniciarMapa(){
 
 if(window.mapaCreado) return;
 
-window.mapaCreado = true;
+window.mapaCreado=true;
 
-/* VISITAS */
+/* CONTADOR */
 
 let visitas =
 localStorage.getItem(
@@ -862,16 +863,14 @@ document.getElementById(
 
 /* MAPA */
 
-const map = L.map('map').setView(
+const map = L.map('map')
+.setView(
 [-39.82,-73.18],
 14
 );
 
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-attribution:'© OpenStreetMap'
-}
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 ).addTo(map);
 
 /* COLORES */
@@ -889,8 +888,6 @@ const colores = [
 '#6d4c41'
 
 ];
-
-/* LISTA */
 
 const listaRutas =
 document.getElementById(
@@ -942,8 +939,7 @@ colores[
 numero % colores.length
 ],
 
-weight:5,
-opacity:1
+weight:5
 
 };
 
@@ -954,19 +950,34 @@ feature,
 layer
 ){
 
-let nombre =
+let nombre = "";
+
+if(feature.properties){
+
+nombre =
 feature.properties.name ||
+feature.properties.Nombre ||
+feature.properties.NOMBRE ||
+feature.properties.title ||
 "Ruta Parque";
 
-layer.nombreRuta = nombre;
+}
+
+nombre = nombre
+.toString()
+.trim()
+.toUpperCase();
+
+layer.nombreRuta =
+nombre;
 
 const datos =
 datosSenderos[nombre] || {
 
-distancia:"No disponible",
-dificultad:"No disponible",
-direccion:"No disponible",
-disciplina:"No disponible"
+distancia:"Sin información",
+dificultad:"Sin información",
+direccion:"Sin información",
+disciplina:"Sin información"
 
 };
 
@@ -976,7 +987,7 @@ layer.bindPopup(`
 
 <div style="min-width:220px">
 
-<h2 style="margin-bottom:10px;">
+<h2>
 ${nombre}
 </h2>
 
@@ -1006,7 +1017,7 @@ ${datos.disciplina}
 
 `);
 
-/* LISTA */
+/* LISTADO */
 
 const item =
 document.createElement("div");
@@ -1058,10 +1069,7 @@ rutas.getBounds()
 
 .catch(error=>{
 
-console.log(
-"ERROR KML:",
-error
-);
+console.log(error);
 
 alert(
 "No se pudo cargar rutas.kml"
@@ -1098,10 +1106,7 @@ marcadorUsuario
 
 marcadorUsuario =
 L.marker(latlng)
-.addTo(map)
-.bindPopup(
-"Tu ubicación"
-);
+.addTo(map);
 
 }
 
